@@ -1,6 +1,6 @@
 angular.module("iFleet").factory("modelosAPI", function ($http) {
 	var _getModelos = function () {
-		return $http.get("api/view/Modelos");
+		return $http.get("api/view/Modelos/retornarModelosJSON");
 	};
 
 	var _getModelo = function (id) {

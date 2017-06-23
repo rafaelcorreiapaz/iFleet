@@ -6,8 +6,8 @@ angular.module('iFleet').config(function($routeProvider){
             templateUrl: 'view/home.html'
         })
         .when('/cadastroveiculos', {
-            controller: 'veiculosListaController',
             templateUrl: 'view/cadastro-veiculos.html',
+            controller: 'veiculosListaController',
             resolve: {
                 veiculos: function(veiculosAPI){
                     return veiculosAPI.getVeiculos();
@@ -17,14 +17,29 @@ angular.module('iFleet').config(function($routeProvider){
                 },
                 modelos: function(modelosAPI){
                     return modelosAPI.getModelos();
-                },
+                }
             }
         })
         .when('/cadastromarcas', {
-            templateUrl: 'view/cadastro-marcas.html'
+            templateUrl: 'view/cadastro-marcas.html',
+            controller: 'marcasListaController',
+            resolve: {
+                marcas: function(marcasAPI){
+                    return marcasAPI.getMarcas();
+                }
+            }
         })
         .when('/cadastromodelos', {
-            templateUrl: 'view/cadastro-modelos.html'
+            templateUrl: 'view/cadastro-modelos.html',
+            controller: 'modelosListaController',
+            resolve: {
+                marcas: function(marcasAPI){
+                    return marcasAPI.getMarcas();
+                },
+                modelos: function(modelosAPI){
+                    return modelosAPI.getModelos();
+                }
+            }
         })
         .when('/cadastrocontroles', {
             templateUrl: 'view/cadastro-controles.html'
@@ -35,4 +50,13 @@ angular.module('iFleet').controller('veiculosListaController', function($scope, 
     $scope.veiculos = veiculos.data;
     $scope.marcas = marcas.data;
     $scope.modelos = modelos.data;
+});
+
+angular.module('iFleet').controller('marcasListaController', function($scope, marcas){
+    $scope.marcas = marcas.data;
+});
+
+angular.module('iFleet').controller('modelosListaController', function($scope, marcas, modelos){
+    $scope.modelos = modelos.data;
+    $scope.marcas = marcas.data;
 });

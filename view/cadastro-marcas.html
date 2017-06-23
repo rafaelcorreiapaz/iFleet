@@ -1,1 +1,19 @@
-cadastro marcas
+<table class="ui striped table">
+  <thead>
+    <tr>
+      <th>Marca</th>
+      <th width="25%">Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="marca in marcas">
+      <td>{{marca.descricao}}</td>
+      <td>
+        <div class="ui buttons">
+            <button class="ui green button">Editar</button>
+            <button class="ui yellow button">Deletar</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

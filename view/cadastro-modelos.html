@@ -1,1 +1,21 @@
-cadastro modelos
+<table class="ui striped table">
+  <thead>
+    <tr>
+      <th>Modelo</th>
+      <th>Marca</th>
+      <th width="25%">Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="modelo in modelos">
+      <td>{{modelo.descricao}}</td>
+      <td></td>
+      <td>
+        <div class="ui buttons">
+            <button class="ui green button">Editar</button>
+            <button class="ui yellow button">Deletar</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

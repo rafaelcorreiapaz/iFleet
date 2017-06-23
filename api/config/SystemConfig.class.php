@@ -29,12 +29,6 @@ class SystemConfig
 		if (self::$config == null)
 			self::$config = new SystemConfig();
 
-		if(isset($_SESSION["_sistema"]))
-		{
-			$sistema = self::getData($_SESSION["_sistema"]);
-			if($sistema != "")
-				date_default_timezone_set(self::getData($_SESSION["_sistema"])["timezone"]);
-		}
 		return self::$config;
 	}
 
