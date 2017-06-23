@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="iFeet">
+<html ng-app="iFleet">
 	<head>
 		<meta charset="iso-8859-1">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +13,8 @@
 		<div class="ui secondary menu">
 			<div class="header item">iFleet - Sistema de Controle de Frota</div>
 			<div class="right menu">
+				<div class="ui item">Admin</div>
+				<div class="ui item">|</div>
 				<a class="ui item">Logout</a>
 			</div>
 		</div>
@@ -25,143 +27,35 @@
 					<div class="item">
 						<div class="header"><i class="browser icon"></i> Cadastros</div>
 						<div class="menu">
-							<a href="?pagina=veiculos" class="item">Veículos</a>
-							<a href="?pagina=marcas" class="item active">Marcas</a>
-							<a href="?pagina=modelos" class="item">Modelos</a>
-							<a href="?pagina=controles" class="item">Controles</a>
+							<a href="#/cadastroveiculos" class="item">Veículos</a>
+							<a href="#/cadastromarcas" class="item">Marcas</a>
+							<a href="#/cadastromodelos" class="item">Modelos</a>
+							<a href="#/cadastrocontroles" class="item">Controles</a>
 						</div>
 					</div>
 					<div class="item">
 						<div class="header"><i class="bar chart icon"></i> Relatórios</div>
 						<div class="menu">
-							<a href="?pagina=controles" class="item">Controles</a>
+							<a href="#relatorio-controles" class="item">Controles</a>
 						</div>
 					</div>
 
 
 				</div>
 			</div>
-			<div class="twelve wide column">
-
-				<table class="ui celled padded table">
-					<thead>
-						<tr>
-							<th class="single line">Evidence Rating</th>
-							<th>Effect</th>
-							<th>Efficacy</th>
-							<th>Consensus</th>
-							<th>Comments</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>
-								<h2 class="ui center aligned header">A</h2>
-							</td>
-							<td class="single line">
-								Power Output
-							</td>
-							<td>
-								<div class="ui star rating" data-rating="3" data-max-rating="3"></div>
-							</td>
-							<td class="right aligned">
-								80% <br>
-								<a href="#">18 studies</a>
-							</td>
-							<td>Creatine supplementation is the reference compound for increasing muscular creatine levels; there is variability in
-								this increase, however, with some nonresponders.</td>
-						</tr>
-						<tr>
-							<td>
-								<h2 class="ui center aligned header">A</h2>
-							</td>
-							<td class="single line">
-								Weight
-							</td>
-							<td>
-								<div class="ui star rating" data-rating="3" data-max-rating="3"></div>
-							</td>
-							<td class="right aligned">
-								100% <br>
-								<a href="#">65 studies</a>
-							</td>
-							<td>Creatine is the reference compound for power improvement, with numbers from one meta-analysis to assess potency</td>
-						</tr>
-						<tr>
-							<td>
-								<h2 class="ui center aligned header">A</h2>
-							</td>
-							<td class="single line">
-								Weight
-							</td>
-							<td>
-								<div class="ui star rating" data-rating="3" data-max-rating="3"></div>
-							</td>
-							<td class="right aligned">
-								100% <br>
-								<a href="#">65 studies</a>
-							</td>
-							<td>Creatine is the reference compound for power improvement, with numbers from one meta-analysis to assess potency</td>
-						</tr>
-						<tr>
-							<td>
-								<h2 class="ui center aligned header">A</h2>
-							</td>
-							<td class="single line">
-								Weight
-							</td>
-							<td>
-								<div class="ui star rating" data-rating="3" data-max-rating="3"></div>
-							</td>
-							<td class="right aligned">
-								100% <br>
-								<a href="#">65 studies</a>
-							</td>
-							<td>Creatine is the reference compound for power improvement, with numbers from one meta-analysis to assess potency</td>
-						</tr>
-						<tr>
-							<td>
-								<h2 class="ui center aligned header">A</h2>
-							</td>
-							<td class="single line">
-								Weight
-							</td>
-							<td>
-								<div class="ui star rating" data-rating="3" data-max-rating="3"></div>
-							</td>
-							<td class="right aligned">
-								100% <br>
-								<a href="#">65 studies</a>
-							</td>
-							<td>Creatine is the reference compound for power improvement, with numbers from one meta-analysis to assess potency</td>
-						</tr>
-						<tr>
-							<td>
-								<h2 class="ui center aligned header">A</h2>
-							</td>
-							<td class="single line">
-								Weight
-							</td>
-							<td>
-								<div class="ui star rating" data-rating="3" data-max-rating="3"></div>
-							</td>
-							<td class="right aligned">
-								100% <br>
-								<a href="#">65 studies</a>
-							</td>
-							<td>Creatine is the reference compound for power improvement, with numbers from one meta-analysis to assess potency</td>
-						</tr>
-					</tbody>
-				</table>
-
-			</div>
+			<div ng-view class="twelve wide column"></div>
 		</div>
 	</div>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="js/lib/angular.min.js"></script>
+	<script src="js/lib/angular-route.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 	<script src="semantic/semantic.min.js"></script>
 	<script src="js/app.js"></script>
+	<script src="js/services/veiculosAPIService.js"></script>
+	<script src="js/services/marcasAPIService.js"></script>
+	<script src="js/services/modelosAPIService.js"></script>
+
 </body>
 
 </html>

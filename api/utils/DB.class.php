@@ -5,23 +5,20 @@ class DB
 
 	private static $con;
 
-	public static function getConection()
+	private function __construct(){}
+
+	public static function getConnection()
 	{
 
 		if(!isset(self::$con))
 		{
 
-			$host    = "189.90.40.21";
-			$port    = "18035";
-			$user    = "postgres";
+			$host    = "localhost";
+			$user    = "root";
 			$pass    = "";
-			$db      = "viaradio";
-			$schemas = ['public'];
-			if(isset($_SESSION['_sistema']) && $_SESSION['_sistema'] != "")
-				$schemas[] = $_SESSION['_sistema'];
+			$db      = "ifleet";
 
-			self::$con = new PDO("pgsql:dbname={$db} host={$host} port={$port}", $user, "");
-			self::$con->query("SET search_path TO " . implode(", ", $schemas));
+			self::$con = new PDO("mysql:dbname={$db};host={$host}", $user, "");
 			self::$con->beginTransaction();
 
 		}

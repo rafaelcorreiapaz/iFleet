@@ -1,0 +1,23 @@
+<table class="ui striped table">
+  <thead>
+    <tr>
+      <th>Placa</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th width="25%">Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="veiculo in veiculos">
+      <td>{{veiculo.placa}}</td>
+      <td>{{veiculo.marca}}</td>
+      <td>{{veiculo.modelo}}</td>
+      <td>
+        <div class="ui buttons">
+            <button class="ui green button">Editar</button>
+            <button class="ui yellow button">Deletar</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
