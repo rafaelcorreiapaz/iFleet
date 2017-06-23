@@ -50,6 +50,11 @@ angular.module('iFleet').controller('veiculosListaController', function($scope, 
     $scope.veiculos = veiculos.data;
     $scope.marcas = marcas.data;
     $scope.modelos = modelos.data;
+
+    $scope.clicar = function(veiculo)
+    {
+        alert("Wissae Web" + veiculo);
+    }
 });
 
 angular.module('iFleet').controller('marcasListaController', function($scope, marcas){

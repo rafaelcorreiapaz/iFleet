@@ -8,12 +8,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="veiculo in veiculos">
+    <tr ng-repeat="veiculo in veiculos" ng-click="clicar(veiculo.id)">
       <td>{{veiculo.placa}}</td>
       <td>{{veiculo.marca}}</td>
       <td>{{veiculo.modelo}}</td>
       <td>
-        <div class="ui buttons">
+        <div class="tiny ui buttons">
             <button class="ui green button">Editar</button>
             <button class="ui yellow button">Deletar</button>
         </div>
