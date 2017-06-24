@@ -35,6 +35,18 @@ angular.module('iFleet').config(function($routeProvider){
                 },
             }
         })
+        .when('/formularioveiculo', {
+            templateUrl: 'view/formulario-veiculo.html',
+            controller: 'veiculoFormularioController',
+            resolve: {
+                marcas: function(marcasAPI){
+                    return marcasAPI.getMarcas();
+                },
+                modelos: function(modelosAPI){
+                    return modelosAPI.getModelos();
+                },
+            }
+        })
         .when('/cadastromarcas', {
             templateUrl: 'view/cadastro-marcas.html',
             controller: 'marcasListaController',
@@ -113,6 +125,10 @@ angular.module('iFleet').config(function($routeProvider){
                 }
             }
         })
+        .when('/formulariofornecedor', {
+            templateUrl: 'view/formulario-fornecedor.html',
+            controller: 'fornecedorFormularioController'
+        })
 
 });
 
@@ -152,4 +168,12 @@ angular.module('iFleet').controller('controlesListaController', function($scope,
 
 angular.module('iFleet').controller('controleFormularioController', function($scope, controle){
     $scope.controle = controle.data;
+});
+
+angular.module('iFleet').controller('fornecedoresListaController', function($scope, fornecedores){
+    $scope.fornecedores = fornecedores.data;
+});
+
+angular.module('iFleet').controller('fornecedorFormularioController', function($scope, fornecedor){
+    $scope.fornecedor = fornecedor.data;
 });

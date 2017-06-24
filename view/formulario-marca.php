@@ -1,11 +1,11 @@
 <h4 class="ui horizontal divider header">
 	<i class="tag icon"></i>
-	Formul√°rio Controle
+	Formul·rio Marca
 </h4>
 <form class="ui form">
 	<div class="field">
-		<label>Data</label>
-		<input type="text" name="data" placeholder="Data" value="{{controle.data | date:'dd/MM/yyyy'}}">
+		<label>Descricao</label>
+		<input type="text" name="descricao" placeholder="DescriÁ„o" value="">
 	</div>
 	<button class="ui fluid button" type="submit">Salvar</button>
 </form>

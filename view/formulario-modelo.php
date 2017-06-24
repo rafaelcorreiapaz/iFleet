@@ -1,11 +1,11 @@
 <h4 class="ui horizontal divider header">
 	<i class="tag icon"></i>
-	Formul√°rio Modelo
+	Formul·rio Modelo
 </h4>
 <form class="ui form">
 	<div class="field">
-		<label>Descri√ß√£o</label>
-		<input type="text" name="descricao" placeholder="Descri√ß√£o" value="{{modelo.descricao}}">
+		<label>DescriÁ„o</label>
+		<input type="text" name="descricao" placeholder="DescriÁ„o" value="">
 	</div>
 	<div class="field">
 		<label>Marca</label>
@@ -13,8 +13,8 @@
 			<input type="hidden" name="marca">
 			<i class="dropdown icon"></i>
 			<div class="default text">Marca</div>
-			<div class="menu">
-				<div ng-repeat="marca in marcas" class="item" data-value="{{marca.id}}">{{marca.descricao}}</div>
+			<div class="menu" api-data="api/view/Marcas/retornarMarcasJSON">
+				<div class="item" data-value="(id)">(descricao)</div>
 			</div>
 		</div>
 	</div>

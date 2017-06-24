@@ -1,4 +1,3 @@
 <?php
 
-	$SystemConfig=  [];
-
+	$SystemConfig['controles'] =  ['Abastencimento', 'Manutenção', 'Revisão', 'Multa'];
