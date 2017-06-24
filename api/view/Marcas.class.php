@@ -10,4 +10,12 @@ class Marcas
         echo SystemHelper::arrayToJSON($arrayMarcas);
     }
 
+    public function retornarMarcaJSON()
+    {
+        $db = DB::getConnection();
+        $arrayMarca = $db->query("SELECT * FROM marcas WHERE id = {$_GET["id"]}")->fetch(PDO::FETCH_ASSOC);
+        echo SystemHelper::arrayToJSON($arrayMarca);
+    }
+
+
 }

@@ -4,7 +4,7 @@ angular.module("iFleet").factory("modelosAPI", function ($http) {
 	};
 
 	var _getModelo = function (id) {
-		return $http.get("api/view/Modelos/" + id);
+		return $http.get("api/view/Modelos/retornarModeloJSON?id=" + id);
 	};
 
 	var _saveModelo = function (contato) {

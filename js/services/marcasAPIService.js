@@ -4,7 +4,7 @@ angular.module("iFleet").factory("marcasAPI", function($http){
 	};
 
 	var _getMarca = function(id){
-		return $http.get("api/view/Marcas/" + id);
+		return $http.get("api/view/Marcas/retornarMarcaJSON?id=" + id);
 	};
 
 	var _saveMarca = function(marca){

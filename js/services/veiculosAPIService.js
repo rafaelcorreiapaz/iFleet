@@ -4,7 +4,7 @@ angular.module("iFleet").factory("veiculosAPI", function($http){
 	};
 
 	var _getVeiculo = function(id){
-		return $http.get("api/view/Veiculos/" + id);
+		return $http.get("api/view/Veiculos/retornarVeiculoJSON?id=" + id);
 	};
 
 	var _saveVeiculo = function(veiculo){
