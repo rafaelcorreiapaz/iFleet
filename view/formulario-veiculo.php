@@ -2,10 +2,10 @@
 	<i class="tag icon"></i>
 	Formulário Veículo
 </h4>
-<form class="ui form">
+<form class="ui form" api-formulario-veiculo>
 	<div class="field">
 		<label>Placa</label>
-		<input type="text" name="placa" placeholder="Placa" value="">
+		<input type="text" name="placa" maxlength="7" required="" pattern="\w{3}\d{4}" placeholder="Placa" value="">
 	</div>
 	<div class="field">
 		<label>KM Inicial</label>
@@ -14,7 +14,7 @@
 	<div class="field">
 		<label>Modelo</label>
 		<div class="ui selection dropdown">
-			<input type="hidden" name="modelo">
+			<input type="hidden" riquired="required" name="modelo">
 			<i class="dropdown icon"></i>
 			<div class="default text">Modelo</div>
 			<div class="menu" api-data="api/view/Modelos/retornarModelosJSON">
@@ -22,5 +22,5 @@
 			</div>
 		</div>
 	</div>
-	<button class="ui fluid button" type="submit">Salvar</button>
+	<button class="ui olive fluid button" type="submit">Salvar</button>
 </form>

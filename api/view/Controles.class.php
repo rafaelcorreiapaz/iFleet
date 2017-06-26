@@ -1,5 +1,7 @@
 <?php
 
+use model\CategoriaControle;
+
 class Controles
 {
 
@@ -8,6 +10,11 @@ class Controles
         $db = DB::getConnection();
         $arrayControles = $db->query("SELECT * FROM controles")->fetchAll(PDO::FETCH_ASSOC);
         echo SystemHelper::arrayToJSON($arrayControles);
+    }
+
+    public function retornarCategoriasControleJSON()
+    {
+        echo SystemHelper::arrayToJSON(SystemConfig::getData('controles'));
     }
 
     public function retornarControleJSON()

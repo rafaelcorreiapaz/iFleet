@@ -1,3 +1,3 @@
 <?php
 
-	$SystemConfig['controles'] =  ['Abastencimento', 'Manutenção', 'Revisão', 'Multa'];
+	$SystemConfig['controles'] =  ['Abastecimento', 'Manutenção', 'Revisão', 'Multa'];

@@ -1,18 +1,11 @@
 <div class="ui menu">
-	<div class="ui category search item">
-		<div class="ui transparent icon input">
-			<input class="prompt" type="text" placeholder="Search animals...">
-			<i class="search link icon"></i>
-		</div>
-		<div class="results"></div>
-	</div>
 
 	<div class="right menu">
 
 		<a href="?pagina=formulario-marca" class="item">
 			<i class="add circle icon"></i>Novo
 		</a>
-		<a class="item">
+		<a href='javascript: if(parseInt($("input[name=marca]:checked").val()) > 0) window.location.href = "?pagina=formulario-marca&id="+$("input[name=marca]:checked").val();' class="item">
 			<i class="edit icon"></i>Editar
 		</a>
 		<a class="item">

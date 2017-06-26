@@ -62,24 +62,34 @@
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 	<script src="semantic/semantic.min.js"></script>
+	<script src="js/app.js"></script>
 	<script>
 		var regExp = /\(([^)]+)\)/g;
 		$('[api-data]').each(function(){
 			var el = $(this);
-			ajax = $.get(el.attr('api-data'), function(obj){
+			$.get(el.attr('api-data'), function(obj){
+
+				obj = JSON.parse(obj);
 
 				var html = el.html().trim();
 				var matches = html.match(/\(([^()]+)\)/g);
 				el.html('');
 
-				obj = JSON.parse(obj);
 				for(var i in obj)
 				{
 					var subs = html;
-					for(var k in matches)
+					if(typeof(obj[i]) === 'object')
 					{
-						key = matches[k].match(/\((.*?)\)/)[1];
-						subs = subs.replace(matches[k], obj[i][key]);
+						for(var k in matches)
+						{
+							key = matches[k].match(/\((.*?)\)/)[1];
+							subs = subs.replace(matches[k], obj[i][key]);
+						}
+					}
+					else
+					{
+						subs = subs.replace('(id)', i);
+						subs = subs.replace('(valor)', obj[i]);
 					}
 					el.append(subs);
 				}
