@@ -1,46 +1,39 @@
-<div class="ui menu">
-	<div class="ui category search item">
-		<div class="ui transparent icon input">
-			<input class="prompt" type="text" placeholder="Search animals...">
-			<i class="search link icon"></i>
-		</div>
-		<div class="results"></div>
-	</div>
-
-	<div class="right tiny menu">
-
+<center>
+	<div class="ui compact tiny menu">
 		<a href="?pagina=formulario-veiculo" class="item">
 			<i class="add circle icon"></i>Novo
 		</a>
-		<a class="item">
+		<a href='javascript: if(parseInt($("input[name=veiculo]:checked").val()) > 0) window.location.href = "?pagina=formulario-veiculo&id="+$("input[name=veiculo]:checked").val();' class="item">
 			<i class="edit icon"></i>Editar
 		</a>
 		<a class="item">
 			<i class="erase icon"></i>Deletar
 		</a>
-
 	</div>
-</div>
-
-<table class="ui definition table">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Placa</th>
-      <th>Marca</th>
-      <th>Modelo</th>
-    </tr>
-  </thead>
-  <tbody api-data="api/view/Veiculos/retornarVeiculosJSON">
-    <tr>
-      <td class="collapsing">
+</center>
+<table class="ui olive single line table">
+	<thead>
+		<tr>
+			<th></th>
+			<th width="20%">Placa</th>
+			<th>Modelo</th>
+			<th>KM Inicial</th>
+			<th>KM Revisao</th>
+			<th>Período Revisao</th>
+		</tr>
+	</thead>
+	<tbody api-data="api/view/JSON/retornarVeiculos">
+		<tr>
+			<td class="collapsing">
 				<div class="ui radio checkbox">
-					<input type="radio" name="veiculo" class="hidden"><label></label>
+					<input type="radio" name="veiculo" value="(id)" class="hidden"><label></label>
 				</div>
-      </td>
-      <td>(placa)</td>
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
+			</td>
+			<td>(placa)</td>
+			<td>(descricao_modelo)</td>
+			<td>(kilometro_inicial)</td>
+			<td>(kilometro_revisao)</td>
+			<td>(periodo_revisao)</td>
+		</tr>
+	</tbody>
 </table>

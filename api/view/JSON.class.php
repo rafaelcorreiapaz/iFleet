@@ -1,20 +1,13 @@
 <?php
 
-use model\dao\Marca;
-use model\dao\Modelo;
+header('Content-type: application/json; charset=iso-8859-1');
+include_once 'Data.class.php';
 
-class JSON
+
+class JSON extends Data
 {
-    public function retornarMarcaPorId()
+    public function __call($func, $params)
     {
-        $obj = new Marca();
-        echo SystemHelper::arrayToJSON($obj->load($_GET['id']));
+        echo SystemHelper::arrayToJSON(parent::$func());
     }
-
-    public function retornarModeloPorId()
-    {
-        $obj = new Modelo();
-        echo SystemHelper::arrayToJSON($obj->load($_GET['id']));
-    }
-
 }

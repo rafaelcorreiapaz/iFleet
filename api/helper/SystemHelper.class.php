@@ -55,39 +55,39 @@ class SystemHelper
 
 	public static function toPHPArray($pgsqlArr)
 	{
-        preg_match('/^{(.*)}$/', $pgsqlArr, $matches);
-        $chaves = [];
-        $valores = [];
-        $pgsqlArr = str_getcsv($matches[1]);
-        foreach($pgsqlArr as $key => $value)
-        {
-                if($key%2==0)
-                    $chaves[] = substr($value, 1);
-                else
-                    $valores[] = substr($value, 0, -1);
-        }
-        return count($chaves) == count($valores) ? array_combine($chaves, $valores) : [];
+		preg_match('/^{(.*)}$/', $pgsqlArr, $matches);
+		$chaves = [];
+		$valores = [];
+		$pgsqlArr = str_getcsv($matches[1]);
+		foreach($pgsqlArr as $key => $value)
+		{
+				if($key%2==0)
+					$chaves[] = substr($value, 1);
+				else
+					$valores[] = substr($value, 0, -1);
+		}
+		return count($chaves) == count($valores) ? array_combine($chaves, $valores) : [];
 	}
 
-    public static function array_column(array $array, $columnKey, $indexKey = null)
-    {
-        $result = [];
-        foreach($array as $subArray)
-        {
-            if(!is_array($subArray))
-                continue;
-            elseif (is_null($indexKey) && array_key_exists($columnKey, $subArray))
-                $result[] = $subArray[$columnKey];
-            elseif (array_key_exists($indexKey, $subArray))
-            {
-                if(is_null($columnKey))
-                    $result[$subArray[$indexKey]] = $subArray;
-                elseif (array_key_exists($columnKey, $subArray))
-                    $result[$subArray[$indexKey]] = $subArray[$columnKey];
-            }
-        }
-        return $result;
-    }
+	public static function array_column(array $array, $columnKey, $indexKey = null)
+	{
+		$result = [];
+		foreach($array as $subArray)
+		{
+			if(!is_array($subArray))
+				continue;
+			elseif (is_null($indexKey) && array_key_exists($columnKey, $subArray))
+				$result[] = $subArray[$columnKey];
+			elseif (array_key_exists($indexKey, $subArray))
+			{
+				if(is_null($columnKey))
+					$result[$subArray[$indexKey]] = $subArray;
+				elseif (array_key_exists($columnKey, $subArray))
+					$result[$subArray[$indexKey]] = $subArray[$columnKey];
+			}
+		}
+		return $result;
+	}
 
 	public static function verificarDiaUtil($data) {
 		$db = DB::getConection();
@@ -101,9 +101,9 @@ class SystemHelper
 		$db = DB::getConection();
 		$stmt = $db->query("SELECT * FROM vr_feriados WHERE data = '{$data}'");
 		if($stmt->rowCount() > 0 || date("w", strtotime($data)) == 0 || date("w", strtotime($data)) == 6)
-		    return SystemHelper::retornarProximoDiaUtil($data);
+			return SystemHelper::retornarProximoDiaUtil($data);
 		else
-		    return $data;
+			return $data;
 	}
 
 	public static function calcularJuroBoleto($valor, $vencimento, $dataReferencia = null)
@@ -188,6 +188,25 @@ class SystemHelper
 			});
 		}
 		return json_encode($array);
+	}
+
+	public static function arrayToXML($array = array(), $rootElement = null, $xml = null)
+	{
+
+		$_xml = $xml;
+		 
+		if($_xml === null)
+			$_xml = new SimpleXMLElement($rootElement !== null ? $rootElement : '<root/>');
+		 
+		foreach ($array as $k => $v)
+		{
+			if (is_array($v))
+				self::arrayToXML($v, $k, $_xml->addChild($k));
+			else
+				$_xml->addChild($k, $v);
+		}
+		 
+		return $_xml->asXML();
 	}
 
 	public static function formatDate($date, $formatDate = 'd/m/Y h:m:s', $newFormatDate = 'Y-m-d h:m:s')

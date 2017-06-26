@@ -1,7 +1,5 @@
-<div class="ui menu">
-
-	<div class="right menu">
-
+<center>
+    <div class="ui compact tiny menu">
 		<a href="?pagina=formulario-marca" class="item">
 			<i class="add circle icon"></i>Novo
 		</a>
@@ -13,16 +11,16 @@
 		</a>
 
 	</div>
-</div>
+</center>
 
-<table class="ui definition table">
+<table class="ui olive single line table">
   <thead>
     <tr>
       <th></th>
       <th>Marca</th>
     </tr>
   </thead>
-  <tbody api-data="api/view/Marcas/retornarMarcasJSON">
+  <tbody api-data="api/view/JSON/retornarMarcas">
     <tr>
       <td class="collapsing">
 				<div class="ui radio checkbox">

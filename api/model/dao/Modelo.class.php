@@ -18,17 +18,17 @@ class Modelo implements DAO
 
     public function load($id)
     {
-        return $this->db->query("SELECT * FROM modelos WHERE id = {$id}")->fetch(\PDO::FETCH_ASSOC);
+        return $this->db->query("SELECT modelos.*, marcas.descricao AS descricao_marca FROM modelos INNER JOIN marcas ON (modelos.marca = marcas.id) WHERE modelos.id = {$id}")->fetch(\PDO::FETCH_ASSOC);
     }
 
 	public function queryAll()
     {
-        return $this->db->query("SELECT * FROM modelos")->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->db->query("SELECT modelos.*, marcas.descricao AS descricao_marca FROM modelos INNER JOIN marcas ON (modelos.marca = marcas.id)")->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 	public function queryAllOrderBy($orderColumn)
     {
-        return $this->db->query("SELECT * FROM modelos ORDER BY {$orderColumn}")->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->db->query("SELECT modelos.*, marcas.descricao AS descricao_marca FROM modelos INNER JOIN marcas ON (modelos.marca = marcas.id) ORDER BY {$orderColumn}")->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 	public function delete($id)

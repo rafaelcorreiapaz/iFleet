@@ -1,44 +1,34 @@
-<div class="ui menu">
-	<div class="ui category search item">
-		<div class="ui transparent icon input">
-			<input class="prompt" type="text" placeholder="Search animals...">
-			<i class="search link icon"></i>
-		</div>
-		<div class="results"></div>
-	</div>
-
-	<div class="right small menu">
-
+<center>
+	<div class="ui compact tiny menu">
 		<a href="?pagina=formulario-fornecedor" class="item">
 			<i class="add circle icon"></i>Novo
 		</a>
-		<a class="item">
+		<a href='javascript: if(parseInt($("input[name=fornecedor]:checked").val()) > 0) window.location.href = "?pagina=formulario-fornecedor&id="+$("input[name=fornecedor]:checked").val();' class="item">
 			<i class="edit icon"></i>Editar
 		</a>
 		<a class="item">
 			<i class="erase icon"></i>Deletar
 		</a>
-
 	</div>
-</div>
+</center>
 
-<table class="ui definition table">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Fornecedor</th>
-      <th>CPF/CNPJ</th>
-    </tr>
-  </thead>
-  <tbody api-data="api/view/Fornecedores/retornarFornecedoresJSON">
-    <tr>
-      <td class="collapsing">
+<table class="ui olive single line table">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Fornecedor</th>
+			<th>CPF/CNPJ</th>
+		</tr>
+	</thead>
+	<tbody api-data="api/view/JSON/retornarFornecedores">
+		<tr>
+			<td class="collapsing">
 				<div class="ui radio checkbox">
-					<input type="radio" name="fornecedor" tabindex="0" class="hidden"><label></label>
+					<input type="radio" name="fornecedor" value="(id)" class="hidden"><label></label>
 				</div>
-      </td>
-      <td>(nome)</td>
-      <td>(cpfcnpj)</td>
-    </tr>
-  </tbody>
+			</td>
+			<td>(nome)</td>
+			<td>(cpfcnpj)</td>
+		</tr>
+	</tbody>
 </table>

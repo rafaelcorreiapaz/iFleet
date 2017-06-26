@@ -13,7 +13,7 @@
 			<input type="hidden" name="marca">
 			<i class="dropdown icon"></i>
 			<div class="default text">Marca</div>
-			<div class="menu" api-data="api/view/Marcas/retornarMarcasJSON">
+			<div class="menu" api-data="api/view/JSON/retornarMarcas">
 				<div class="item" data-value="(id)">(descricao)</div>
 			</div>
 		</div>

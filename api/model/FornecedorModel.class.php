@@ -3,7 +3,7 @@
 namespace model;
 use model\Model;
 
-class FornecedorModel implements Model
+class FornecedorModel extends Model
 {
 
     private $id;
@@ -40,5 +40,9 @@ class FornecedorModel implements Model
         return $this->cpfcnpj;
     }
 
+    public function validar()
+    {
+        
+    }
 
 }

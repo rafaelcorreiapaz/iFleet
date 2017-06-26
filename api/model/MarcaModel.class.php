@@ -2,29 +2,34 @@
 
 namespace model;
 
-class MarcaModel implements Model
+class MarcaModel extends Model
 {
-    private $id;
-    private $descricao;
+	private $id;
+	private $descricao;
 
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
 
-    public function getId()
-    {
-        return $this->id;
-    }
+	public function getId()
+	{
+		return $this->id;
+	}
 
-    public function setDescricao($descricao)
-    {
-        $this->descricao = $descricao;
-    }
+	public function setDescricao($descricao)
+	{
+		$this->descricao = $descricao;
+	}
 
-    public function getDescricao()
-    {
-        return $this->descricao;
-    }
+	public function getDescricao()
+	{
+		return $this->descricao;
+	}
+
+	public function validar()
+	{
+		
+	}
 
 }

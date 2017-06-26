@@ -2,8 +2,9 @@
 
 namespace model;
 
-interface Model
+abstract class Model
 {
 
+	public abstract function validar();
 
 }

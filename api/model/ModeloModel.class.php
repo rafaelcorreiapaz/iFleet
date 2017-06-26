@@ -4,7 +4,7 @@ namespace model;
 
 use model\MarcaModel;
 
-class Modelo implements Model
+class ModeloModel extends Model
 {
     private $id;
     private $descricao;
@@ -38,6 +38,11 @@ class Modelo implements Model
     public function getMarca()
     {
         return $this->marca;
+    }
+
+    public function validar()
+    {
+        
     }
 
 }

@@ -1,18 +1,10 @@
-<div class="ui menu">
-	<div class="ui category search item">
-		<div class="ui transparent icon input">
-			<input class="prompt" type="text" placeholder="Search animals...">
-			<i class="search link icon"></i>
-		</div>
-		<div class="results"></div>
-	</div>
-
-	<div class="right menu">
+<center>
+    <div class="ui compact tiny menu">
 
 		<a href="?pagina=formulario-controle" class="item">
 			<i class="add circle icon"></i>Novo
 		</a>
-		<a class="item">
+		<a href='javascript: if(parseInt($("input[name=controle]:checked").val()) > 0) window.location.href = "?pagina=formulario-controle&id="+$("input[name=controle]:checked").val();' class="item">
 			<i class="edit icon"></i>Editar
 		</a>
 		<a class="item">
@@ -20,9 +12,8 @@
 		</a>
 
 	</div>
-</div>
-
-<table class="ui definition table">
+</center>
+<table class="ui olive single line table">
 	<thead>
 		<tr>
 			<th></th>
@@ -30,15 +21,15 @@
 			<th>Fornecedor</th>
 		</tr>
 	</thead>
-	<tbody api-data="api/view/Controles/retornarControlesJSON">
+	<tbody api-data="api/view/JSON/retornarControles">
 		<tr>
 			<td class="collapsing">
 				<div class="ui radio checkbox">
-					<input type="radio" name="controle" tabindex="0" class="hidden"><label></label>
+					<input type="radio" name="controle" value="(id)" class="hidden"><label></label>
 				</div>
 			</td>
-			<td>(data)</td>
-			<td></td>
+			<td>(id) - (data)</td>
+			<td>(nome)</td>
 		</tr>
 	</tbody>
 </table>

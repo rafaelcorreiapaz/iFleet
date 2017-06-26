@@ -2,7 +2,7 @@
 
 require_once 'FPDF/fpdf.php';
 
-class Relatorio extends FPDF
+abstract class Relatorio extends FPDF
 {
 
 	private $descricao;
