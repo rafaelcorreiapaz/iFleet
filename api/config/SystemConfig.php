@@ -6,3 +6,5 @@
 		['id' => 2, 'descricao' => 'Revisão'],
 		['id' => 3, 'descricao' => 'Multa']
 	];
+
+	$SystemConfig['contatos'] = ['rafael.cp@outlook.com', 'carlos@jupiter.com.br', 'luciano@jupiter.com.br', 'roseane@jupiter.com.br', '981118035', '988480102'];

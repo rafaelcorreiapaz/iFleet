@@ -1,10 +1,22 @@
 <?php
 
-header('Content-type: application/xml; charset=iso-8859-1');
+// header('Content-type: application/pdf; charset=iso-8859-1');
 
-include_once 'Data.class.php';
-
-class PDF extends Data
+class PDF 
 {
-	
+	public function retornarControle()
+	{
+		$controle = new ControlePDF();
+		$controle->setCodigoControle($_GET['id']);
+		$controle->montarPDF();
+	}
+
+	public function retornarRelatorioControle()
+	{
+		$controle = new RelatorioControlePDF();
+		$controle->setCodigoControle($_GET['id']);
+		$controle->montarPDF();
+	}
+
+
 }

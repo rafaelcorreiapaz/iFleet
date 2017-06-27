@@ -90,4 +90,6 @@ class ItemControleModel extends Model
 		
 	}
 
+    protected function popular(){}
+
 }

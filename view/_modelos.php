@@ -6,9 +6,6 @@
         <a href='javascript: if(parseInt($("input[name=modelo]:checked").val()) > 0) window.location.href = "?pagina=formulario-modelo&id="+$("input[name=modelo]:checked").val();' class="item">
             <i class="edit icon"></i>Editar
         </a>
-        <a class="item">
-            <i class="erase icon"></i>Deletar
-        </a>
     </div>
 </center>
 <table class="ui olive single line table">

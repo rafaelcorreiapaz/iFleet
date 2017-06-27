@@ -7,8 +7,6 @@ use model\ModeloModel;
 class ControleModel extends Model
 {
 
-	private $relacao = ['id' => 'Id', 'data' => 'Data', 'fornecedor' => 'Fornecedor'];
-
 	private $id;
 	private $data;
 	private $fornecedor;
@@ -56,7 +54,14 @@ class ControleModel extends Model
 
 	public function validar()
 	{
-
+		if(count($this->itens_controle) == 0)
+			throw new \Exception('Nâo possui itens de controle');
+        if(empty($this->fornecedor))
+            throw new \Exception('Fornecedor inválido');
+			
 	}
+
+    protected function popular(){ }
+
 
 }

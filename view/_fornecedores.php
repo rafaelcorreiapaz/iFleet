@@ -6,9 +6,6 @@
 		<a href='javascript: if(parseInt($("input[name=fornecedor]:checked").val()) > 0) window.location.href = "?pagina=formulario-fornecedor&id="+$("input[name=fornecedor]:checked").val();' class="item">
 			<i class="edit icon"></i>Editar
 		</a>
-		<a class="item">
-			<i class="erase icon"></i>Deletar
-		</a>
 	</div>
 </center>
 

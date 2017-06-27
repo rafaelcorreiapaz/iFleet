@@ -1,15 +1,12 @@
 <center>
-	<div class="ui compact tiny menu">
-		<a href="?pagina=formulario-veiculo" class="item">
-			<i class="add circle icon"></i>Novo
-		</a>
-		<a href='javascript: if(parseInt($("input[name=veiculo]:checked").val()) > 0) window.location.href = "?pagina=formulario-veiculo&id="+$("input[name=veiculo]:checked").val();' class="item">
-			<i class="edit icon"></i>Editar
-		</a>
-		<a class="item">
-			<i class="erase icon"></i>Deletar
-		</a>
-	</div>
+<div class="ui compact tiny menu">
+	<a href="?pagina=formulario-veiculo" class="item">
+		<i class="add circle icon"></i>Novo
+	</a>
+	<a href='javascript: if(parseInt($("input[name=veiculo]:checked").val()) > 0) window.location.href = "?pagina=formulario-veiculo&id="+$("input[name=veiculo]:checked").val();' class="item">
+		<i class="edit icon"></i>Editar
+	</a>
+</div>
 </center>
 <table class="ui olive single line table">
 	<thead>

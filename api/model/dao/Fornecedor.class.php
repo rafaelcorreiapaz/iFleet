@@ -40,7 +40,7 @@ class Fornecedor implements DAO
     {
         $id      = $obj->getId();
         $nome    = $obj->getNome();
-        $cpfcnpj = $obj->getCpfCnpj();
+        $cpfcnpj = $obj->getCpfCnpj()->getDocumento();
         if(empty($id))
             return $this->db->query("INSERT INTO fornecedores SET nome = '{$nome}', cpfcnpj = '{$cpfcnpj}'");
         else

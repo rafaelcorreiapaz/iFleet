@@ -2,6 +2,7 @@
 
 namespace model;
 use model\Model;
+use model\documento\ACadastroPessoa;
 
 class FornecedorModel extends Model
 {
@@ -30,7 +31,7 @@ class FornecedorModel extends Model
         return $this->nome;
     }
 
-    public function setCpfCnpj($cpfcnpj)
+    public function setCpfCnpj(ACadastroPessoa $cpfcnpj)
     {
         $this->cpfcnpj = $cpfcnpj;
     }
@@ -42,7 +43,14 @@ class FornecedorModel extends Model
 
     public function validar()
     {
-        
+        if(empty($this->nome))
+            throw new \Exception('Nome inválido');
+        if(!$this->cpfcnpj->validarDocumento())
+            throw new \Exception('Documento inválido');            
+            
     }
+
+    protected function popular(){}
+
 
 }

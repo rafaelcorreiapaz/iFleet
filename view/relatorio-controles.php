@@ -2,7 +2,7 @@
 <i class="bar chart icon"></i>
 Formulário Controle
 </h4>
-<form action="api/view/Relatorio" target="blank" class="ui equal width form">
+<form action="api/view/PDF/retornarRelatorioControle" target="blank" class="ui equal width form">
 	<div class="fields">
 		<div class="field">
 			<label>Veículo</label>
@@ -28,11 +28,11 @@ Formulário Controle
 		</div>
 		<div class="field">
 			<label>Período Inicial</label>
-			<input type="date" placeholder="Período Inicial">
+			<input type="date" name="periodo_inicial" placeholder="Período Inicial">
 		</div>
 		<div class="field">
 			<label>Período Final</label>
-			<input type="date" placeholder="Período Final">
+			<input type="date" name="periodo_final" placeholder="Período Final">
 		</div>
 	</div>
 	<button class="ui olive fluid button" type="submit">Salvar</button>

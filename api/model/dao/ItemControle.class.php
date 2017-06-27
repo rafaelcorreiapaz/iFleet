@@ -17,22 +17,27 @@ class ItemControle implements DAO
 
     public function load($id)
     {
-        return $this->db->query("SELECT * FROM itenscontrole WHERE id = {$id}")->fetch(\PDO::FETCH_ASSOC);
+        return $this->db->query("SELECT itenscontrole.* FROM itenscontrole INNER JOIN controles ON (itenscontrole.controle = controles.id) WHERE itenscontrole.id = {$id}")->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function loadUltimaRevisaoPorVeiculo($veiculo)
+    {
+        return $this->db->query("SELECT itenscontrole.*, controles.data FROM itenscontrole INNER JOIN controles ON (itenscontrole.controle = controles.id) WHERE itenscontrole.veiculo = {$veiculo} AND itenscontrole.categoria_controle = 2 ORDER BY controles.data DESC LIMIT 1")->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function queryAll()
     {
-        return $this->db->query("SELECT * FROM itenscontrole")->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->db->query("SELECT itenscontrole.* FROM itenscontrole INNER JOIN controles ON (itenscontrole.controle = controles.id)")->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 	public function queryAllByControle($id)
     {
-        return $this->db->query("SELECT * FROM itenscontrole WHERE controle = {$id}")->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->db->query("SELECT itenscontrole.* FROM itenscontrole INNER JOIN controles ON (itenscontrole.controle = controles.id) WHERE itenscontrole.controle = {$id}")->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-	public function queryAllOrderBy($orderColumn)
+	public function queryAllOrderBy($orderColumn, $arrayCriterio = [])
     {
-        return $this->db->query("SELECT * FROM itenscontrole ORDER BY {$orderColumn}")->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->db->query("SELECT itenscontrole.* FROM itenscontrole INNER JOIN controles ON (itenscontrole.controle = controles.id) ". (count($arrayCriterio) > 0 ? ' WHERE ' . implode(' AND ', $arrayCriterio) : '') ." ORDER BY {$orderColumn}")->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 	public function delete($id)

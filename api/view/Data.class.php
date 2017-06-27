@@ -80,5 +80,7 @@ abstract class Data
     protected function retornarCategoriasControle()
     {
         return SystemConfig::getData('controles');
-    }	
+    }
+
+
 }

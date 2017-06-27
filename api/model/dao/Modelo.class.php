@@ -42,9 +42,9 @@ class Modelo implements DAO
         $descricao  = $obj->getDescricao();
         $marca      = $obj->getMarca()->getId();
         if(empty($id))
-            return $this->db->query("INSERT INTO marcas SET nome = '{$nome}', descricao = '{$descricao}', marca = '{$marca}'");
+            return $this->db->query("INSERT INTO modelos SET descricao = '{$descricao}', marca = '{$marca}'");
         else
-            return $this->db->query("UPDATE marcas SET nome = '{$nome}', descricao = '{$descricao}', marca = '{$marca}' WHERE id = {$id}");
+            return $this->db->query("UPDATE modelos SET descricao = '{$descricao}', marca = '{$marca}' WHERE id = {$id}");
     }
 
 }

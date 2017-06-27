@@ -42,7 +42,13 @@ class ModeloModel extends Model
 
     public function validar()
     {
-        
+        if(empty($this->descricao))
+            throw new \Exception('Descrição inválida');
+        if(empty($this->marca))
+            throw new \Exception('Marca inválida');
     }
+
+    protected function popular(){}
+
 
 }

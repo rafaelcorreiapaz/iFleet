@@ -2,54 +2,62 @@
 
 require_once 'FPDF/fpdf.php';
 
-abstract class Relatorio extends FPDF
+abstract class APDF extends FPDF
 {
 
-	private $descricao;
+	private $description;
 	private $widths;
 	private $aligns;
 
-	public function header()
+	public function __construct($description = '', $orientation = 'P', $unit = 'mm', $format = 'A4')
 	{
-		// $this->image("../resources/images/nfe.jpg", 17, 8, 20);
-
-		$this->SetFont('Times', 'BU', 15);
-		$this->Cell(35);
-		$this->Cell(75, 0, "SISTEMA DE NOTA FISCAL ELETRÔNICA", 0, 0, 'L');
-
-		$this->Ln();
-		$this->Cell(35);
-		$this->SetFont('Times', '', 8);
-		$this->Cell(75, 10, "JÚPITER TELECOMUNICAÇÕES E INFORMÁTICA LTDA", 0, 0, 'L');
-
-		$this->Ln();
-		$this->Cell(35);
-		$this->SetFont('Times', '', 8);
-		$this->Cell(75, -2, "RUA SIMPLÍCIO MOREIRA, 1.485B - CENTRO - FONE: (99) 3529-3131", 0, 0, 'L');
-
-		$this->Ln();
-		$this->Cell(35);
-		$this->SetFont('Times', '', 8);
-		$this->Cell(75, 10, "www.jupiter.com.br - sac@jupiter.com.br", 0, 0, 'L');
-
-		$this->Ln();
-		$this->Cell(35);
-		$this->SetFont('Times', '', 8);
-		$this->Cell(75, -2, strtoupper($this->descricao) . " - " . date("d/m/Y H:i:s"), 0, 0, 'L');
-
-		$this->ln(10);
+		parent::__construct($orientation, $unit, $format);
+		$this->description = $description;
 	}
 
-	public function footer()
+	public final function montarPDF()
+	{
+		$this->aliasNbPages();
+		$this->addPage();
+		$this->corpo();
+		$this->output();
+	}
+
+	public final function header()
+	{
+		$this->image("imagens/logo_relatorio.jpg", 10, 6, 20);
+		$this->ln(2);
+
+		$this->setFont('Arial', 'BU', 12);
+		$this->cell(25);
+		$this->cell(75, 0, "JÚPITER TELECOMUNICAÇÕES E INFORMÁTICA LTDA", 0, 0, 'L');
+
+		$this->ln();
+		$this->cell(25);
+		$this->setFont('Arial', '', 7);
+		$this->cell(75, 10, "RUA SIMPLÍCIO MOREIRA, 1.485B - CENTRO - FONE: (99) 3529-3131", 0, 0, 'L');
+
+		$this->ln();
+		$this->cell(25);
+		$this->cell(75, -2, "www.jupiter.com.br - sac@jupiter.com.br - " . date("d/m/Y H:i:s"), 0, 0, 'L');
+		// $this->cell(75, -2, SystemConfig::getData($_SESSION['_sistema'])['entidade'] . " - www.jupiter.com.br - sac@jupiter.com.br - " . date("d/m/Y H:i:s"), 0, 0, 'L');
+
+		if($this->titulo != '')
+		{
+			$this->setY(6);
+			$this->setX(160);
+			$this->setFont('Arial', 'B', 10);
+			$this->drawTextBox($this->titulo, 40, 20, 'C', 'M');
+		}
+
+		$this->ln($this->titulo != '' ? 15 : 10);
+	}
+
+	public final function footer()
 	{
 		$this->SetY(-15);
 		$this->SetFont("Times", "I", 8);
 		$this->Cell(0, 10, "PÁGINA " . $this->PageNo(). " DE {nb}", 0, 0, "R");
-	}
-
-	public function setDescricao($descricao)
-	{
-		$this->descricao = $descricao;
 	}
 
 	public function setWidths($w)

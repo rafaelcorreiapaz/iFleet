@@ -3,20 +3,35 @@
 namespace model;
 
 use model\ModeloModel;
+use model\ItemControleModel;
+use model\dao\Veiculo;
+use model\dao\ItemControle;
 
 class VeiculoModel extends Model
 {
 
+	private $dao;
 	private $id;
 	private $placa;
 	private $modelo;
 	private $kilometro_inical;
 	private $kilometro_revisao;
 	private $periodo_revisao;
+	private $kilometro_ultima_revisao;
+	private $data_ultima_revisao;
+
+	public function __contruct()
+	{
+		$this->dao = new Veiculo();
+	}
 
 	public function setId($id)
 	{
-		$this->id = $id;
+		if(!empty($id))
+		{
+			$this->id = $id;
+			$this->popular();
+		}
 	}
 
 	public function getId()
@@ -74,9 +89,56 @@ class VeiculoModel extends Model
 		return $this->periodo_revisao;
 	}
 
+	private function setKilometroUltimaRevisao($kilometro_ultima_revisao)
+	{
+		$this->kilometro_ultima_revisao = $kilometro_ultima_revisao;
+	}
+
+	public function getKilometroUltimaRevisao()
+	{
+		return $this->kilometro_ultima_revisao;
+	}
+
+	private function setDataUltimaRevisao($data_ultima_revisao)
+	{
+		$this->data_ultima_revisao = $data_ultima_revisao;
+	}
+
+	public function getDataUltimaRevisao()
+	{
+		return $this->data_ultima_revisao;
+	}
+
     public function validar()
     {
-        
+        if(empty($this->placa) || strlen($this->placa) != 7)
+            throw new \Exception('Placa inválida');
+        if(empty($this->periodo_revisao) || $this->periodo_revisao < 0)
+            throw new \Exception('Período de revisão inválida');
+        if(empty($this->kilometro_revisao) || $this->kilometro_revisao < 0)
+            throw new \Exception('Período de revisão inválida');
+    }
+
+    protected function popular()
+    {
+    	if(!empty($this->getId()))
+    	{
+    		$registro = $this->dao->load($this->getId());
+
+    		$modelo = new ModeloModel()
+    		$modelo->setId($registro['placa']);
+
+    		$this->setModelo($modelo);
+    		$this->setPlaca($registro['placa']);
+    		$this->setKilometroInicial($registro['kilometro_inical']);
+    		$this->setKilometroRevisao($registro['kilometro_revisao']);
+    		$this->setPeriodoRevisao($registro['periodo_revisao']);
+
+    		$registroItemControle = new ItemControle();
+    		$registroItemControle->loadUltimaRevisaoPorVeiculo($this->getId());
+    		$this->setDataUltimaRevisao($registroItemControle['data']);
+    		$this->setKilometroUltimaRevisao($registroItemControle['kilometro_atual']);
+    	}
     }
 
 

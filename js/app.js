@@ -142,35 +142,39 @@ if($('[api-formulario-controle]').length)
 
 if($('[api-formulario-marca]').length)
 {
-	$.get('api/view/JSON/retornarMarcaPorId?id=' + $('input[name=id]').val(), function(obj){
-		for(var i in obj)
-		{
-			$('input[name='+i+']').val(obj[i]);
-		}
-	});
+	setTimeout(function(){
+		$.get('api/view/JSON/retornarMarcaPorId?id=' + $('input[name=id]').val(), function(obj){
+			for(var i in obj)
+			{
+				$('input[name='+i+']').val(obj[i]);
+			}
+		});
+	}, 500);
 }
 
 if($('[api-formulario-modelo]').length)
 {
-	$(document).ajaxStop(function(){
+	setTimeout(function(){
 		$.get('api/view/JSON/retornarModeloPorId?id=' + $('input[name=id]').val(), function(obj){
 			for(var i in obj)
 			{
 				$('input[name='+i+']').val(obj[i]);
 			}
 		});
-	});
+	}, 500);
 }
 
 if($('[api-formulario-fornecedor]').length)
 {
-	$.get('api/view/JSON/retornarFornecedorPorId?id=' + $('input[name=id]').val(), function(obj){
-		console.log(obj);
-		for(var i in obj)
-		{
-			$('input[name='+i+']').val(obj[i]);
-		}
-	});
+	setTimeout(function(){
+		$.get('api/view/JSON/retornarFornecedorPorId?id=' + $('input[name=id]').val(), function(obj){
+			console.log(obj);
+			for(var i in obj)
+			{
+				$('input[name='+i+']').val(obj[i]);
+			}
+		});
+	}, 500);
 }
 
 if($('[api-formulario-veiculo]').length)
@@ -183,8 +187,6 @@ if($('[api-formulario-veiculo]').length)
 			}
 		});
 	}, 500);
-	// $(document).ajaxComplete(function(){
-	// });
 }
 
 var replaceMethod = function(el, obj, selected, key, flag){

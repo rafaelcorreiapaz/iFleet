@@ -29,7 +29,10 @@ class MarcaModel extends Model
 
 	public function validar()
 	{
-		
+        if(empty($this->descricao))
+            throw new \Exception('Descrição inválida');
 	}
+
+    protected function popular(){}
 
 }
