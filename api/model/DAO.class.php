@@ -7,7 +7,7 @@ use model\Model;
 interface DAO
 {
 
-    public function load($id);
+	public function load($id);
 	public function queryAll();
 	public function queryAllOrderBy($orderColumn);
 	public function delete($id);

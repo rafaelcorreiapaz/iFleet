@@ -1,6 +1,6 @@
 <h4 class="ui horizontal divider header">
 <i class="bar chart icon"></i>
-Formulário Controle
+Relatório Controle
 </h4>
 <form action="api/view/PDF/retornarRelatorioControle" target="blank" class="ui equal width form">
 	<div class="fields">
@@ -35,5 +35,5 @@ Formulário Controle
 			<input type="date" name="periodo_final" placeholder="Período Final">
 		</div>
 	</div>
-	<button class="ui olive fluid button" type="submit">Salvar</button>
+	<button class="ui olive fluid button" type="submit">Emitir</button>
 </form>

@@ -1,5 +1,7 @@
 <?php
 
+include_once 'PHPMailer/PHPMailerAutoload.php';
+
 class Mail
 {
 	

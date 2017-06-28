@@ -1,5 +1,5 @@
 <h4 class="ui horizontal divider header">
-<i class="tag icon"></i> Formulario Controle
+<i class="browser icon"></i> Formulario Controle
 </h4>
 <form class="ui form" api-formulario-controle><input type="hidden" name="id" value="<?=isset($_GET['id']) ? $_GET['id'] : ''?>">
 <div class="field">

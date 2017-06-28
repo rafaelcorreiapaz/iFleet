@@ -8,3 +8,4 @@
 	];
 
 	$SystemConfig['contatos'] = ['rafael.cp@outlook.com', 'carlos@jupiter.com.br', 'luciano@jupiter.com.br', 'roseane@jupiter.com.br', '981118035', '988480102'];
+	// $SystemConfig['contatos'] = ['rafael.cp@outlook.com'];

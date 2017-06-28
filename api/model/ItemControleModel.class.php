@@ -128,9 +128,24 @@ class ItemControleModel extends Model
 		}
 	}
 
+	private function verificarPeriodoRevisao()
+	{
+		$veiculo = $this->getVeiculo();
+		$veiculo->setControle($this->getControle());
+		if(($veiculo->getKilometroRevisao() - ($this->getKilometroAtual() - $veiculo->getKilometroUltimaRevisao())) < 100 || (strtotime($this->getControle()->getData()) - strtotime($veiculo->getDataUltimaRevisao())) < strtotime('1 month'))
+		{
+			$comunicacao = new \ComunicacaoFacade();
+			foreach(\SystemConfig::getData('contatos') as $contato)
+			{
+				$comunicacao->enviarMensagem($contato, 'Veículo de placa ' . $veiculo->getPlaca() . ' já está próximo do período de revisão.');
+			}
+		}
+	}
+
 	public function salvar()
 	{
 		$this->validar();
+		$this->verificarPeriodoRevisao();
 		return $this->dao->salvar($this);
 	}
 

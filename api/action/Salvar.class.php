@@ -6,6 +6,7 @@ use model\FornecedorModel;
 use model\MarcaModel;
 use model\VeiculoModel;
 use model\ModeloModel;
+use model\UsuarioModel;
 
 header('Content-type: application/json; charset=iso-8859-1');
 
@@ -97,6 +98,33 @@ class Salvar
 
             if($marca->salvar() === false)
                 throw new Exception('Erro ao salvar marca');
+
+            $return['success'] = true;
+            $return['message'] = 'Salvo com sucesso';
+
+        }
+        catch(Exception $e)
+        {
+            $return['success'] = false;
+            $return['message'] = $e->getMessage();
+
+        }
+        echo SystemHelper::arrayToJSON($return);
+    }
+
+    public function salvarUsuario()
+    {
+        $return = [];
+        try
+        {
+
+            $usuario = new UsuarioModel($_POST['id']);
+            $usuario->setNome($_POST['nome']);
+            $usuario->setUsuario($_POST['usuario']);
+            $usuario->setSenha($_POST['senha']);
+
+            if($usuario->salvar() === false)
+                throw new Exception('Erro ao salvar usuário');
 
             $return['success'] = true;
             $return['message'] = 'Salvo com sucesso';

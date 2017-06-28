@@ -6,6 +6,7 @@ use model\dao\Fornecedor;
 use model\dao\ItemControle;
 use model\dao\Veiculo;
 use model\dao\Controle;
+use model\dao\Usuario;
 
 abstract class Data
 {
@@ -13,6 +14,12 @@ abstract class Data
     protected function retornarMarcaPorId()
     {
         $obj = new Marca();
+        return $obj->load($_GET['id']);
+    }
+
+    protected function retornarUsuarioPorId()
+    {
+        $obj = new Usuario();
         return $obj->load($_GET['id']);
     }
 
@@ -67,6 +74,12 @@ abstract class Data
     protected function retornarVeiculos()
     {
         $obj = new Veiculo();
+        return $obj->queryAll();
+    }
+
+    protected function retornarUsuarios()
+    {
+        $obj = new Usuario();
         return $obj->queryAll();
     }
 

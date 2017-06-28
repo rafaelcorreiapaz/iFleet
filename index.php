@@ -1,67 +1,72 @@
-<!DOCTYPE html>
-<?php
-	include_once "api/SystemLibrary.php";
+<?
+if(isset($_GET['logout']))
+{
+	session_start();
+	$_SESSION = [];
+}
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
 		<meta charset="iso-8859-1">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>iFleet - Sistema de Controle de Frotas</title>
+		<title>IFleet > Sistema de Controle de Frotas</title>
 		<link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
 		<link rel="stylesheet" type="text/css" href="css/545,45417,545487.css">
+		<style>
+
+			.column
+			{
+				max-width: 450px;
+			}
+
+		</style>
 	</head>
 	<body>
-		<div class="ui success basic modal">
-			<div class="ui icon header"><i class="checkmark icon"></i></div>
-			<div class="content" style="text-align: center"></div>
-		</div>
-		<div class="ui error basic modal">
-			<div class="ui icon header"><i class="remove circle icon"></i></div>
-			<div class="content" style="text-align: center"></div>
-		</div>
-		</div>
-		<div class="ui container">
-			<br>
-			<div class="ui secondary menu">
-				<div class="header item">iFleet - Sistema de Controle de Frota</div>
-				<div class="right menu">
-					<a class="ui item">Bem-vindo, <?=date('d/m/Y')?></a>
+
+		<div class="ui middle aligned center aligned grid">
+			<div class="column">
+				<h2 class="ui blue image header">
+				<div class="content">
+					Logar em sua conta
 				</div>
-			</div>
-			<div class="ui divider"></div>
-			<br>
-			<div class="ui grid">
-				<div class="four wide column">
-					<div class="ui olive vertical pointing fluid menu">
-						<div class="item">
-							<div class="header"><i class="browser icon"></i> Cadastros</div>
-							<div class="menu">
-								<a href="?pagina=_controles" class="item<?=($_GET["pagina"] == "_controles" || $_GET["pagina"] == "formulario-controle" ? " active" : "")?>">Controles</a>
-								<a href="?pagina=_fornecedores" class="item<?=($_GET["pagina"] == "_fornecedores" || $_GET["pagina"] == "formulario-fornecedor" ? " active" : "")?>">Fornecedores</a>
-								<a href="?pagina=_marcas" class="item<?=($_GET["pagina"] == "_marcas" || $_GET["pagina"] == "formulario-marca" ? " active" : "")?>">Marcas</a>
-								<a href="?pagina=_modelos" class="item<?=($_GET["pagina"] == "_modelos" || $_GET["pagina"] == "formulario-modelo" ? " active" : "")?>">Modelos</a>
-								<a href="?pagina=_veiculos" class="item<?=($_GET["pagina"] == "_veiculos" || $_GET["pagina"] == "formulario-veiculo" ? " active" : "")?>">Veículos</a>
+				</h2>
+				<form class="ui large form" id="formularioLoginUsuario" method="post" action="#">
+					<div class="ui stacked segment">
+						<div class="field">
+							<div class="ui left icon input">
+								<i class="user icon"></i>
+								<input type="text" name="usuario" placeholder="Usuário" autofocus="" required>
 							</div>
 						</div>
-						<div class="item">
-							<div class="header"><i class="bar chart icon"></i> Relatórios</div>
-							<div class="menu">
-								<a href="?pagina=relatorio-controles" class="item<?=($_GET["pagina"] == "relatorio-controles" ? " active" : "")?>">Controles</a>
+						<div class="field">
+							<div class="ui left icon input">
+								<i class="lock icon"></i>
+								<input type="password" name="senha" placeholder="Senha" required>
 							</div>
 						</div>
+						<button class="ui fluid large blue submit button">Login</button>
 					</div>
-				</div>
-				<div class="twelve wide column">
-					<?php
-						$arquivo  = "view/{$_GET["pagina"]}.php";
-						if(file_exists($arquivo))
-							include_once $arquivo;
-					?>
-				</div>
+				</form>
+				<div class="ui error message hidden"></div>
 			</div>
 		</div>
+
+
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 		<script src="semantic/semantic.min.js"></script>
-		<script src="js/app.js"></script>
+		<script>
+			$('#formularioLoginUsuario').submit(function(e){
+				e.preventDefault();
+				var formulario = $(this);
+				$.post("api/action/Login/logar", $(this).find("input").serializeArray(), function(response){
+					if(response.success == false)
+						$(".ui.error.message").removeClass("hidden").html(response.message);
+					else
+						window.location.href = "painel.php";
+				});
+			});
+		</script>
+
+		
 	</body>
 </html>

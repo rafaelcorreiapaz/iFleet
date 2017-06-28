@@ -2,3 +2,21 @@ html,
 body {
     height: 94% !important;
 }
+
+body > .grid {
+	height: 100%;
+}
+
+.container
+{
+	margin: 15px auto;
+}
+
+.center
+{
+	margin: 0px auto;
+}
+
+.esconder {
+	display: none;
+}

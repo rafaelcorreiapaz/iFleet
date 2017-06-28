@@ -58,6 +58,25 @@ $('[api-formulario-marca]').submit(function(e){
 	});
 });
 
+$('[api-formulario-usuario]').submit(function(e){
+	e.preventDefault();
+	$.post('api/action/Salvar/salvarUsuario', $(this).find('input').serializeArray(), function(data){
+		if(data.success == true)
+		{
+			$('.ui.success.basic.modal').find('.content').html(data.message);
+			$('.ui.success.basic.modal').modal('show');
+			setTimeout(function(){
+				location.reload();
+			}, 1000);
+		}
+		else
+		{
+			$('.ui.error.basic.modal').find('.content').html(data.message);
+			$('.ui.error.basic.modal').modal('show');
+		}
+	});
+});
+
 $('[api-formulario-fornecedor]').submit(function(e){
 	e.preventDefault();
 	$.post('api/action/Salvar/salvarFornecedor', $(this).find('input').serializeArray(), function(data){
@@ -189,6 +208,18 @@ if($('[api-formulario-veiculo]').length)
 {
 	setTimeout(function(){
 		$.get('api/view/JSON/retornarVeiculoPorId?id=' + $('input[name=id]').val(), function(obj){
+			for(var i in obj)
+			{
+				$('[name='+i+']').val(obj[i]);
+			}
+		});
+	}, 500);
+}
+
+if($('[api-formulario-usuario]').length)
+{
+	setTimeout(function(){
+		$.get('api/view/JSON/retornarUsuarioPorId?id=' + $('input[name=id]').val(), function(obj){
 			for(var i in obj)
 			{
 				$('[name='+i+']').val(obj[i]);

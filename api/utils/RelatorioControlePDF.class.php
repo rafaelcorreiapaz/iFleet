@@ -24,11 +24,12 @@ class RelatorioControlePDF extends APDF
 		if(SystemHelper::validateDate($_GET['periodo_inicial'], 'Y-m-d'))
 			$arrayCriterio[] = "controles.data >= '" . $_GET['periodo_inicial'] . "'";
 		if(SystemHelper::validateDate($_GET['periodo_final'], 'Y-m-d'))
-			$arrayCriterio[] = "controles.data >= '" . $_GET['periodo_final'] . "'";
+			$arrayCriterio[] = "controles.data <= '" . $_GET['periodo_final'] . "'";
 		if($_GET['veiculo'] > 0)
 			$arrayCriterio[] = "itenscontrole.veiculo = '" . $_GET['veiculo'] . "'";
 		if($_GET['categoria_controle'] > 0)
 			$arrayCriterio[] = "itenscontrole.categoria_controle = '" . $_GET['categoria_controle'] . "'";
+
 
 		$this->setFont("Arial", "B", 10);
 		$this->cell(0, 10, "RELATORIO DE CONTROLE" . (SystemHelper::validateDate($_GET['periodo_inicial'], 'Y-m-d') ? " DE " . date('d/m/Y', strtotime($_GET["periodo_inicial"])) : "") . (SystemHelper::validateDate($_GET['periodo_final'], 'Y-m-d') ? " ATÉ " . date('d/m/Y', strtotime($_GET["periodo_final"]))  : ""), 0, 1, "C");
