@@ -31,7 +31,7 @@
 	</div>
 	<div class="field">
 		<label>KM Atual</label>
-		<input type="text" api-controle name="kilometro_atual" placeholder="KM Atual">
+		<input type="number" api-controle name="kilometro_atual" placeholder="KM Atual">
 	</div>
 	<div class="field">
 		<label>Cat. Controle</label>
@@ -46,11 +46,11 @@
 	</div>
 	<div class="field">
 		<label>Quantidade</label>
-		<input type="text" api-controle name="quantidade" placeholder="Quantidade">
+		<input type="number" api-controle name="quantidade" placeholder="Quantidade">
 	</div>
 	<div class="field">
 		<label>Valor</label>
-		<input type="text" api-controle name="valor" placeholder="Valor">
+		<input type="number" api-controle name="valor" placeholder="Valor">
 	</div>
 	<div class="field">
 		<label>&nbsp;</label>
@@ -78,7 +78,7 @@
 				</div>
 			</td>
 			<td>
-				<div class="field"><input type="text" name="kilometro_atual[]" value="(kilometro_atual)"></div>
+				<div class="field"><input type="number" name="kilometro_atual[]" value="(kilometro_atual)"></div>
 			</td>
 			<td>
 				<div class="field">
@@ -88,18 +88,18 @@
 				</div>
 			</td>
 			<td>
-				<div class="field"><input type="text" name="quantidade[]" value="(quantidade)"></div>
+				<div class="field"><input type="number" name="quantidade[]" value="(quantidade)"></div>
 			</td>
 			<td>
-				<div class="field"><input type="text" name="valor[]" value="(valor)"></div>
+				<div class="field"><input type="number" name="valor[]" value="(valor)"></div>
 			</td>
 		</tr>
 	</tbody>
 	<tfoot class="full-width">
 	<tr>
 		<th colspan="4"></th>
-		<th>
-			<i class="user icon"></i> Add User
+		<th id="totalControle">
+			
 		</th>
 	</tr>
 	</tfoot>

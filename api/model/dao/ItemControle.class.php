@@ -20,11 +20,6 @@ class ItemControle implements DAO
         return $this->db->query("SELECT itenscontrole.* FROM itenscontrole INNER JOIN controles ON (itenscontrole.controle = controles.id) WHERE itenscontrole.id = {$id}")->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function loadUltimaRevisaoPorVeiculo($veiculo)
-    {
-        return $this->db->query("SELECT itenscontrole.*, controles.data FROM itenscontrole INNER JOIN controles ON (itenscontrole.controle = controles.id) WHERE itenscontrole.veiculo = {$veiculo} AND itenscontrole.categoria_controle = 2 ORDER BY controles.data DESC LIMIT 1")->fetch(\PDO::FETCH_ASSOC);
-    }
-
     public function queryAll()
     {
         return $this->db->query("SELECT itenscontrole.* FROM itenscontrole INNER JOIN controles ON (itenscontrole.controle = controles.id)")->fetchAll(\PDO::FETCH_ASSOC);
@@ -48,10 +43,10 @@ class ItemControle implements DAO
 	public function salvar(Model $obj)
     {
         $id                 = $obj->getId();
-        $veiculo            = $obj->getVeiculo();
+        $veiculo            = $obj->getVeiculo()->getId();
         $kilometro_atual    = $obj->getKilometroAtual();
         $categoria_controle = $obj->getCategoriaControle();
-        $controle           = $obj->getControle();
+        $controle           = $obj->getControle()->getId();
         $quantidade         = $obj->getQuantidade();
         $valor              = $obj->getValor();
 

@@ -101,7 +101,7 @@ if($('[api-formulario-controle]').length)
 
 	$('#adicionarControle').click(function(e){
 		e.preventDefault();
-		var quantidadeControle = $('[api-controle]').length;
+		var quantidadeControle = $('[api-controle]').length, total = 0;
 		$('[api-controle]').each(function(){
 			if($(this).val().length !== 0)
 				--quantidadeControle;
@@ -111,10 +111,10 @@ if($('[api-formulario-controle]').length)
 
 			var row = '<tr>';
 			row += '<td><div class="field"><input type="hidden" name="itemcontrole[]" value=""><select name="veiculo[]" api-data-local api-key="veiculos" api-selected="'+$('[api-controle][name=veiculo]').val()+'"><option value="(veiculos.id)">(veiculos.placa)</option></select></div></td>';
-			row += '<td><div class="field"><input type="text" name="kilometro_atual[]" value="'+$('[api-controle][name=kilometro_atual]').val()+'"></div></td>';
+			row += '<td><div class="field"><input type="number" name="kilometro_atual[]" value="'+$('[api-controle][name=kilometro_atual]').val()+'"></div></td>';
 			row += '<td><div class="field"><select name="categoria_controle[]" api-data-local api-key="controles" api-selected="'+$('[api-controle][name=categoria_controle]').val()+'"><option value="(controles.id)">(controles.descricao)</option></select></div></td>';
-			row += '<td><div class="field"><input type="text" name="quantidade[]" value="'+$('[api-controle][name=quantidade]').val()+'"></div></td>';
-			row += '<td><div class="field"><input type="text" name="valor[]" value="'+$('[api-controle][name=valor]').val()+'"></div></td>';
+			row += '<td><div class="field"><input type="number" name="quantidade[]" value="'+$('[api-controle][name=quantidade]').val()+'"></div></td>';
+			row += '<td><div class="field"><input type="number" name="valor[]" value="'+$('[api-controle][name=valor]').val()+'"></div></td>';
 			row += '</tr>';
 
 			$('#tabelaControle tbody').prepend(row);
@@ -129,6 +129,12 @@ if($('[api-formulario-controle]').length)
 			});
 
 		}
+		 
+		$("td input[name^='valor']").each(function(){
+			total += parseFloat($(this).val());
+		});
+
+		$('#totalControle').html(total.toFixed(2));
 	});
 
 	$.get('api/view/JSON/retornarControlePorId?id=' + $('input[name=id]').val(), function(obj){
@@ -136,7 +142,9 @@ if($('[api-formulario-controle]').length)
 		{
 			$('input[name='+i+']').val(obj[i]);
 		}
+
 	});
+
 
 }
 
@@ -257,5 +265,16 @@ $(document).ajaxStop(function(){
 		if(dataLocal[chave] !== undefined)
 			replaceMethod(el, dataLocal[chave], selected, chave, 1);
 	});
+
+
+	if($("td input[name^='valor']").length > 0)
+	{
+		var total = 0;
+		$("td input[name^='valor']").each(function(){
+			total += parseFloat($(this).val());
+		});
+
+		$('#totalControle').html(total.toFixed(2));
+	}
 
 });

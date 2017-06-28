@@ -38,8 +38,8 @@ class Marca implements DAO
 
 	public function salvar(Model $obj)
     {
-        $id      = $obj->getId();
-        $descricao    = $obj->getDescricao();
+        $id         = $obj->getId();
+        $descricao  = $obj->getDescricao();
         if(empty($id))
             return $this->db->query("INSERT INTO marcas SET descricao = '{$descricao}'");
         else

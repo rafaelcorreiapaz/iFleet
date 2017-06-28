@@ -3,16 +3,33 @@
 namespace model;
 
 use model\ModeloModel;
+use model\FornecedorModel;
+use model\ItemControleModel;
+use model\dao\Controle;
+use model\dao\ItemControle;
 
 class ControleModel extends Model
 {
 
+	private $dao;
+	private $daoItemControle;
 	private $id;
 	private $data;
 	private $fornecedor;
 	private $itens_controle = [];
 
-	public function setId($id)
+	public function __construct($id = '')
+	{
+		$this->dao = new Controle();
+		$this->daoItemControle = new ItemControle();
+		if(!empty($id))
+		{
+			$this->setId($id);
+			$this->popular();
+		}
+	}
+
+	private function setId($id)
 	{
 		$this->id = $id;
 	}
@@ -32,7 +49,7 @@ class ControleModel extends Model
 		return $this->data;
 	}
 
-	public function setFornecedor($fornecedor)
+	public function setFornecedor(FornecedorModel $fornecedor)
 	{
 		$this->fornecedor = $fornecedor;
 	}
@@ -56,12 +73,46 @@ class ControleModel extends Model
 	{
 		if(count($this->itens_controle) == 0)
 			throw new \Exception('Nâo possui itens de controle');
-        if(empty($this->fornecedor))
-            throw new \Exception('Fornecedor inválido');
+		if(empty($this->fornecedor))
+			throw new \Exception('Fornecedor inválido');
 			
 	}
 
-    protected function popular(){ }
+	protected function popular()
+	{
+		if(!empty($this->getId()))
+		{
+			$registro = $this->dao->load($this->getId());
+
+			$this->setFornecedor(new FornecedorModel($registro['fornecedor']));
+			$this->setData($registro['data']);
+
+			$itens_controle = $this->daoItemControle->queryAllByControle($this->getId());
+			foreach($itens_controle as $itemControle)
+			{
+				$this->addItemControle(new ItemControleModel($itemControle['id']));
+			}
+	   }
+	}
+
+	public function salvar()
+	{
+		$this->validar();
+		if($this->dao->salvar($this))
+		{
+			
+			if(empty($this->getId()))
+				$this->setId($this->dao->getId());
+
+			foreach($this->itens_controle as $itemControle)
+			{
+				$itemControle->setControle($this);
+				$itemControle->salvar();
+			}
+		}
+		else
+			return false;
+	}
 
 
 }

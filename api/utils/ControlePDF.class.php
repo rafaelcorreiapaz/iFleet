@@ -1,8 +1,6 @@
 <?php
 
-use model\dao\Controle;
-use model\dao\ItemControle;
-use model\dao\Veiculo;
+use model\ControleModel;
 
 class ControlePDF extends APDF
 {
@@ -16,8 +14,7 @@ class ControlePDF extends APDF
 
 	protected function corpo()
 	{
-		$controle = new Controle();
-		$arrayControle = $controle->load($this->codigoControle);
+		$controle = new ControleModel($this->codigoControle);
 
 		$this->setFont('Arial', "B", 7);
 		$this->cell(30, 4, "COD CONTROLE", "L:1; T:1;", 0, "L");
@@ -25,9 +22,9 @@ class ControlePDF extends APDF
 		$this->cell(135, 4, "FORNECEDOR", "L:1; T:1; R:1;", 1, "L");
 
 		$this->setFont('Arial', "", 8);
-		$this->cell(30, 4, $arrayControle['id'], "L:1; B:1;", 0, "L");
-		$this->cell(25, 4, date("d/m/Y", strtotime($arrayControle["data"])), "L:1; B:1;", 0, "L");
-		$this->cell(135, 4, $arrayControle["nome"], "L:1; R:1; B:1;", 1, "L");
+		$this->cell(30, 4, $controle->getId(), "L:1; B:1;", 0, "L");
+		$this->cell(25, 4, $controle->getData(), "L:1; B:1;", 0, "L");
+		$this->cell(135, 4, $controle->getFornecedor()->getNome(), "L:1; R:1; B:1;", 1, "L");
 
 		$this->ln();
 
@@ -44,20 +41,17 @@ class ControlePDF extends APDF
 	    $this->setAligns(["L", "C", "R", "R", 'R']);
 	    $this->setFont('Arial', "", 8);
 
-	    $veiculo = new Veiculo();
-
-		$itemControle = new ItemControle();
-		$itensControle = $itemControle->queryAllByControle($this->codigoControle);
+		$itensControle = $controle->getItensControle();
 		$arrayValor = [];
 		foreach($itensControle as $itemControle)
 		{
-			$arrayValor[] = $itemControle['valor'];
+			$arrayValor[] = $itemControle->getValor();
 			$this->row([
-				SystemConfig::getData('controles')[$itemControle['categoria_controle']]['descricao'],
-				$veiculo->load($itemControle['veiculo'])['placa'],
-				$itemControle['kilometro_atual'],
-				SystemHelper::decimalFormat($itemControle['quantidade']),
-				SystemHelper::decimalFormat($itemControle['valor'])
+				SystemConfig::getData('controles')[$itemControle->getCategoriaControle()]['descricao'],
+				$itemControle->getVeiculo()->getPlaca(),
+				$itemControle->getKilometroAtual(),
+				$itemControle->getQuantidadeFormatada(),
+				$itemControle->getValorFormatado()
 			]);
 		}
 

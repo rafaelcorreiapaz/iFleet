@@ -3,16 +3,23 @@
 namespace model;
 
 use model\MarcaModel;
+use model\dao\Modelo;
 
 class ModeloModel extends Model
 {
+    private $dao;
     private $id;
     private $descricao;
     private $marca;
 
-    public function setId($id)
+    public function __construct($id = '')
     {
-        $this->id = $id;
+        $this->dao = new Modelo();
+        if(!empty($id))
+        {
+            $this->id = $id;
+            $this->popular();
+        }
     }
 
     public function getId()
@@ -48,7 +55,18 @@ class ModeloModel extends Model
             throw new \Exception('Marca inválida');
     }
 
-    protected function popular(){}
+    protected function popular()
+    {
+        $registro = $this->dao->load($this->getId());
 
+        $this->setMarca(new MarcaModel($registro['marca']));
+        $this->setDescricao($registro['descricao']);
+    }
+
+    public function salvar()
+    {
+        $this->validar();
+        $this->dao->salvar($this);
+    }
 
 }

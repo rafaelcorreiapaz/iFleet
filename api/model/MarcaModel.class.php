@@ -2,14 +2,22 @@
 
 namespace model;
 
+use model\dao\Marca;
+
 class MarcaModel extends Model
 {
+	private $dao;
 	private $id;
 	private $descricao;
 
-	public function setId($id)
+	public function __construct($id = '')
 	{
-		$this->id = $id;
+		$this->dao = new Marca();
+		if(!empty($id))
+		{
+			$this->id = $id;
+			$this->popular();
+		}
 	}
 
 	public function getId()
@@ -29,10 +37,23 @@ class MarcaModel extends Model
 
 	public function validar()
 	{
-        if(empty($this->descricao))
-            throw new \Exception('Descrição inválida');
+		if(empty($this->descricao))
+			throw new \Exception('Descrição inválida');
 	}
 
-    protected function popular(){}
+	protected function popular()
+	{
+		if(!empty($this->getId()))
+		{
+			$registro = $this->dao->load($this->getId());
+			$this->setDescricao($registro['descricao']);
+		}
+	}
+
+	public function salvar()
+	{
+		$this->validar();
+		return $this->dao->salvar($this);
+	}
 
 }

@@ -22,6 +22,11 @@ class Controle implements DAO
         return $this->db->query("SELECT controles.*, fornecedores.nome FROM controles INNER JOIN fornecedores ON (controles.fornecedor = fornecedores.id) WHERE controles.id = {$id}")->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function getId()
+    {
+        return $this->db->query('SELECT LAST_INSERT_ID()')->fetchColumn();
+    }
+
 	public function queryAll()
     {
         return $this->db->query("SELECT controles.*, fornecedores.nome FROM controles INNER JOIN fornecedores ON (controles.fornecedor = fornecedores.id)")->fetchAll(\PDO::FETCH_ASSOC);
@@ -43,49 +48,13 @@ class Controle implements DAO
         $idControle    = $obj->getId();
         $data          = $obj->getData();
         $fornecedor    = $obj->getFornecedor()->getId();
-        $itensControle = $obj->getItensControle();
 
-
-        try
-        {
-
-            if(empty($idControle))
-            {
-                    if($this->db->query("INSERT INTO controles SET data = '{$data}', fornecedor = '{$fornecedor}'") == false)
-                        throw new Exception("Error Processing Request");
-                        
-                    $idControle = $this->db->query('SELECT LAST_INSERT_ID()')->fetchColumn()[0];
-            }
-            else
-            {
-
-                if($this->db->query("UPDATE controles SET data = '{$data}', fornecedor = '{$fornecedor}' WHERE id = {$idControle}") == false)
-                    throw new Exception("Error Processing Request", 1);                    
-            }
-
-            foreach($itensControle as $obj)
-            {
-                $obj->setControle($idControle);
-
-                $itemControle = new ItemControle();
-                $itemControle->salvar($obj);
-                unset($itemControle);
-            }
-
-            return true;
-        }
-        catch(Exception $e)
-        {
-
-            return false;
-        }
-
+        if(empty($idControle))
+            return $this->db->query("INSERT INTO controles SET data = '{$data}', fornecedor = '{$fornecedor}'");
+        else
+            return $this->db->query("UPDATE controles SET data = '{$data}', fornecedor = '{$fornecedor}' WHERE id = {$idControle}");
 
     }
-
-
-
-
 
 
 }

@@ -3,6 +3,7 @@
 namespace model;
 
 use model\ModeloModel;
+use model\ControleModel;
 use model\ItemControleModel;
 use model\dao\Veiculo;
 use model\dao\ItemControle;
@@ -11,25 +12,25 @@ class VeiculoModel extends Model
 {
 
 	private $dao;
+	private $daoItemControle;
 	private $id;
 	private $placa;
 	private $modelo;
+	private $controle;
 	private $kilometro_inical;
 	private $kilometro_revisao;
 	private $periodo_revisao;
 	private $kilometro_ultima_revisao;
 	private $data_ultima_revisao;
 
-	public function __contruct()
+	public function __construct($id = '')
 	{
 		$this->dao = new Veiculo();
-	}
-
-	public function setId($id)
-	{
+		$this->daoItemControle = new ItemControle();
 		if(!empty($id))
 		{
 			$this->id = $id;
+			$this->setUltimaRevisao();
 			$this->popular();
 		}
 	}
@@ -52,6 +53,26 @@ class VeiculoModel extends Model
 	public function setModelo(ModeloModel $modelo)
 	{
 		$this->modelo = $modelo;
+	}
+
+	public function setControle(ControleModel $controle)
+	{
+		$this->controle = $controle;
+		$this->setUltimaRevisao();
+	}
+
+	private function setUltimaRevisao()
+	{
+
+		$arrayCriterio = [];
+		$arrayCriterio[] = 'itenscontrole.categoria_controle = 0';
+		$arrayCriterio[] = 'itenscontrole.veiculo = ' . $this->getId();
+		if(get_class($this->controle) === 'ControleModel')
+			$arrayCriterio[] = "controles.data < '" . $this->getControle()->getData() . "'";
+
+		$registroItemControle = $this->daoItemControle->queryAllOrderBy('itenscontrole.id DESC', $arrayCriterio);
+		$this->setDataUltimaRevisao($registroItemControle['data']);
+		$this->setKilometroUltimaRevisao($registroItemControle['kilometro_atual']);
 	}
 
 	public function getModelo()
@@ -109,37 +130,33 @@ class VeiculoModel extends Model
 		return $this->data_ultima_revisao;
 	}
 
-    public function validar()
-    {
-        if(empty($this->placa) || strlen($this->placa) != 7)
-            throw new \Exception('Placa inválida');
-        if(empty($this->periodo_revisao) || $this->periodo_revisao < 0)
-            throw new \Exception('Período de revisão inválida');
-        if(empty($this->kilometro_revisao) || $this->kilometro_revisao < 0)
-            throw new \Exception('Período de revisão inválida');
-    }
+	public function validar()
+	{
+		if(empty($this->placa) || strlen($this->placa) != 7)
+			throw new \Exception('Placa inválida');
+		if(empty($this->periodo_revisao) || $this->periodo_revisao < 0)
+			throw new \Exception('Período de revisão inválida');
+		if(empty($this->kilometro_revisao) || $this->kilometro_revisao < 0)
+			throw new \Exception('Período de revisão inválida');
+	}
 
-    protected function popular()
-    {
-    	if(!empty($this->getId()))
-    	{
-    		$registro = $this->dao->load($this->getId());
+	protected function popular()
+	{
+		if(!empty($this->getId()))
+		{
+			$registro = $this->dao->load($this->getId());
 
-    		$modelo = new ModeloModel()
-    		$modelo->setId($registro['placa']);
+			$this->setModelo(new ModeloModel($registro['modelo']));
+			$this->setPlaca($registro['placa']);
+			$this->setKilometroInicial($registro['kilometro_inical']);
+			$this->setKilometroRevisao($registro['kilometro_revisao']);
+			$this->setPeriodoRevisao($registro['periodo_revisao']);
+		}
+	}
 
-    		$this->setModelo($modelo);
-    		$this->setPlaca($registro['placa']);
-    		$this->setKilometroInicial($registro['kilometro_inical']);
-    		$this->setKilometroRevisao($registro['kilometro_revisao']);
-    		$this->setPeriodoRevisao($registro['periodo_revisao']);
-
-    		$registroItemControle = new ItemControle();
-    		$registroItemControle->loadUltimaRevisaoPorVeiculo($this->getId());
-    		$this->setDataUltimaRevisao($registroItemControle['data']);
-    		$this->setKilometroUltimaRevisao($registroItemControle['kilometro_atual']);
-    	}
-    }
-
-
+	public function salvar()
+	{
+		$this->validar();
+		$this->dao->salvar($this);
+	}
 }

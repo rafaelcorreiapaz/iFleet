@@ -2,19 +2,10 @@
 
 use model\ControleModel;
 use model\ItemControleModel;
-use model\dao\Controle;
-
 use model\FornecedorModel;
-use model\dao\Fornecedor;
-
 use model\MarcaModel;
-use model\dao\Marca;
-
 use model\VeiculoModel;
-use model\dao\Veiculo;
-
 use model\ModeloModel;
-use model\dao\Modelo;
 
 header('Content-type: application/json; charset=iso-8859-1');
 
@@ -28,21 +19,16 @@ class Salvar
         try
         {
 
-            $fornecedor = new FornecedorModel();
-            $fornecedor->setId($_POST['fornecedor']);
-
-            $controle = new ControleModel();
-            $controle->setId($_POST['id']);
+            $controle = new ControleModel($_POST['id']);
             $controle->setData($_POST['data']);
-            $controle->setFornecedor($fornecedor);
+            $controle->setFornecedor(new FornecedorModel($_POST['fornecedor']));
 
             if(is_array($_POST['veiculo']))
             {
                 foreach($_POST['veiculo'] as $chave => $valor)
                 {
-                    $ItemControle = new ItemControleModel();
-                    $ItemControle->setId($_POST['itemcontrole'][$chave]);
-                    $ItemControle->setVeiculo($_POST['veiculo'][$chave]);
+                    $ItemControle = new ItemControleModel($_POST['itemcontrole'][$chave]);
+                    $ItemControle->setVeiculo(new VeiculoModel($_POST['veiculo'][$chave]));
                     $ItemControle->setKilometroAtual($_POST['kilometro_atual'][$chave]);
                     $ItemControle->setCategoriaControle($_POST['categoria_controle'][$chave]);
                     $ItemControle->setQuantidade($_POST['quantidade'][$chave]);
@@ -53,10 +39,7 @@ class Salvar
                 }
             }
 
-            $controle->validar();
-
-            $dao = new Controle();
-            if($dao->salvar($controle) === false)
+            if($controle->salvar() === false)
                 throw new Exception('Erro ao salvar controle');
 
             $return['success'] = true;
@@ -82,17 +65,10 @@ class Salvar
         try
         {
 
-            $fornecedor = new FornecedorModel();
-            $fornecedor->setId($_POST['id']);
+            $fornecedor = new FornecedorModel($_POST['id']);
             $fornecedor->setNome($_POST['nome']);
-
-            $objCpfCnpj = DocumentoCadastroFactory::getObjeto($_POST['cpfcnpj']);
-            $fornecedor->setCpfCnpj($objCpfCnpj);
-
-            $fornecedor->validar();
-
-            $dao = new Fornecedor();
-            if($dao->salvar($fornecedor) === false)
+            $fornecedor->setCpfCnpj(DocumentoCadastroFactory::getObjeto($_POST['cpfcnpj']));
+            if($fornecedor->salvar() === false)
                 throw new Exception('Erro ao salvar fornecedor');
 
             $return['success'] = true;
@@ -116,15 +92,11 @@ class Salvar
         try
         {
 
-            $marca = new MarcaModel();
-            $marca->setId($_POST['id']);
+            $marca = new MarcaModel($_POST['id']);
             $marca->setDescricao($_POST['descricao']);
-            $marca->validar();
 
-            $dao = new Marca();
-            if($dao->salvar($marca) === false)
+            if($marca->salvar() === false)
                 throw new Exception('Erro ao salvar marca');
-
 
             $return['success'] = true;
             $return['message'] = 'Salvo com sucesso';
@@ -145,20 +117,12 @@ class Salvar
         try
         {
 
-            $marca = new MarcaModel();
-            $marca->setId($_POST['marca']);
-
-            $modelo = new ModeloModel();
-            $modelo->setId($_POST['id']);
+            $modelo = new ModeloModel($_POST['id']);
             $modelo->setDescricao($_POST['descricao']);
-            $modelo->setMarca($marca);
+            $modelo->setMarca(new MarcaModel($_POST['marca']));
 
-            $modelo->validar();
-
-            $dao = new Modelo();
-            if($dao->salvar($modelo) === false)
+            if($modelo->salvar() === false)
                 throw new Exception('Erro ao salvar modelo');
-
 
             $return['success'] = true;
             $return['message'] = 'Salvo com sucesso';
@@ -179,24 +143,16 @@ class Salvar
         try
         {
 
-            $modelo = new ModeloModel();
-            $modelo->setId($_POST['modelo']);
 
-            $veiculo = new VeiculoModel();
-            $veiculo->setId($_POST['id']);
+            $veiculo = new VeiculoModel($_POST['id']);
             $veiculo->setPlaca($_POST['placa']);
             $veiculo->setKilometroInicial($_POST['kilometro_inicial']);
             $veiculo->setKilometroRevisao($_POST['kilometro_revisao']);
             $veiculo->setPeriodoRevisao($_POST['periodo_revisao']);
+            $veiculo->setModelo(new ModeloModel($_POST['modelo']));
 
-            $veiculo->setModelo($modelo);
-
-            $veiculo->validar();
-
-            $dao = new Veiculo();
-            if($dao->salvar($veiculo) === false)
+            if($veiculo->salvar() === false)
                 throw new Exception('Erro ao salvar veículo');
-
 
             $return['success'] = true;
             $return['message'] = 'Salvo com sucesso';

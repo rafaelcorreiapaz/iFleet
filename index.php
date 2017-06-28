@@ -25,7 +25,7 @@
 			<div class="ui secondary menu">
 				<div class="header item">iFleet - Sistema de Controle de Frota</div>
 				<div class="right menu">
-					<a class="ui item">Logout</a>
+					<a class="ui item">Bem-vindo, <?=date('d/m/Y')?></a>
 				</div>
 			</div>
 			<div class="ui divider"></div>
