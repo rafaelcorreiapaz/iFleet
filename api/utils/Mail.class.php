@@ -41,6 +41,7 @@ class Mail
 		$this->mail->AddAddress($email);
 		$this->mail->Subject = $assunto; # Assunto da mensagem
 		$this->mail->Body = $mensagem;
+		$this->mail->send();
 	}
 
 }
