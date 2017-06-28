@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50617
-Source Host           : localhost:3306
+Source Server         : 189.90.40.54
+Source Server Version : 50530
+Source Host           : 189.90.40.54:3306
 Source Database       : ifleet
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50530
 File Encoding         : 65001
 
-Date: 2017-06-27 17:09:54
+Date: 2017-06-28 17:04:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,12 +26,12 @@ CREATE TABLE `controles` (
   PRIMARY KEY (`id`),
   KEY `fornecedor` (`fornecedor`),
   CONSTRAINT `controles_ibfk_1` FOREIGN KEY (`fornecedor`) REFERENCES `fornecedores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of controles
 -- ----------------------------
-INSERT INTO `controles` VALUES ('8', '2017-06-24', '1');
+INSERT INTO `controles` VALUES ('58', '2017-06-01', '2');
 
 -- ----------------------------
 -- Table structure for fornecedores
@@ -43,19 +43,20 @@ CREATE TABLE `fornecedores` (
   `cpfcnpj` varchar(14) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cpfcnpj` (`cpfcnpj`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of fornecedores
 -- ----------------------------
 INSERT INTO `fornecedores` VALUES ('1', 'Auto Posto Quatro Rodas', '22704143000117');
-INSERT INTO `fornecedores` VALUES ('2', 'Auto Posto Imprecol V', '10736373000189');
+INSERT INTO `fornecedores` VALUES ('2', 'Auto Posto Imprecol II', '10736373000189');
 INSERT INTO `fornecedores` VALUES ('3', 'Posto Avenida', '02283661000288');
 INSERT INTO `fornecedores` VALUES ('4', 'Posto Maranata', '22962786000160');
 INSERT INTO `fornecedores` VALUES ('5', 'Posto R10', '20444802000106');
 INSERT INTO `fornecedores` VALUES ('6', 'Posto Nova Esperança', '05386627000121');
 INSERT INTO `fornecedores` VALUES ('7', 'Auto Posto São Sebastião', '11669248000166');
-INSERT INTO `fornecedores` VALUES ('9', 'Wissae Web', '05022850362');
+INSERT INTO `fornecedores` VALUES ('9', 'Wissae Web AAAA', '05022850362');
+INSERT INTO `fornecedores` VALUES ('10', 'Posto Bom Jesus', '03847650335');
 
 -- ----------------------------
 -- Table structure for itenscontrole
@@ -69,18 +70,13 @@ CREATE TABLE `itenscontrole` (
   `quantidade` int(11) DEFAULT NULL,
   `valor` double DEFAULT NULL,
   `controle` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `controle` (`controle`),
-  CONSTRAINT `itenscontrole_ibfk_1` FOREIGN KEY (`controle`) REFERENCES `controles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of itenscontrole
 -- ----------------------------
-INSERT INTO `itenscontrole` VALUES ('1', '23', '335', '1', '333', '33333', '8');
-INSERT INTO `itenscontrole` VALUES ('2', '21', '5555', '2', '55', '333', '8');
-INSERT INTO `itenscontrole` VALUES ('3', '29', '335', '3', '33', '3333', '8');
-INSERT INTO `itenscontrole` VALUES ('4', '2', '33', '1', '33', '333', '8');
+INSERT INTO `itenscontrole` VALUES ('26', '4', '10', '0', '50', '100', '58');
 
 -- ----------------------------
 -- Table structure for marcas
@@ -95,11 +91,11 @@ CREATE TABLE `marcas` (
 -- ----------------------------
 -- Records of marcas
 -- ----------------------------
-INSERT INTO `marcas` VALUES ('1', 'Fiat');
+INSERT INTO `marcas` VALUES ('1', 'Fiat II');
 INSERT INTO `marcas` VALUES ('2', 'VW');
 INSERT INTO `marcas` VALUES ('3', 'Chevrolet');
 INSERT INTO `marcas` VALUES ('4', 'Ford');
-INSERT INTO `marcas` VALUES ('5', 'Hyundai');
+INSERT INTO `marcas` VALUES ('5', 'teste');
 INSERT INTO `marcas` VALUES ('6', 'Jeep');
 INSERT INTO `marcas` VALUES ('7', 'Honda');
 INSERT INTO `marcas` VALUES ('8', 'Mitsubishi');
@@ -127,7 +123,7 @@ CREATE TABLE `modelos` (
 -- Records of modelos
 -- ----------------------------
 INSERT INTO `modelos` VALUES ('2', 'Bandeirantes II', '1', '0');
-INSERT INTO `modelos` VALUES ('3', 'Mobi', '1', '0');
+INSERT INTO `modelos` VALUES ('3', 'Mobi II', '1', '0');
 INSERT INTO `modelos` VALUES ('4', 'CG 150 Titan', '1', '1');
 INSERT INTO `modelos` VALUES ('5', 'Pálio', '1', '0');
 INSERT INTO `modelos` VALUES ('6', 'XTE 125', '1', '1');
@@ -138,6 +134,26 @@ INSERT INTO `modelos` VALUES ('10', 'Uno Miller', '1', '0');
 INSERT INTO `modelos` VALUES ('11', 'Uno', '1', '0');
 INSERT INTO `modelos` VALUES ('12', 'Strada', '1', '0');
 INSERT INTO `modelos` VALUES ('13', 'Up', '1', '0');
+
+-- ----------------------------
+-- Table structure for usuarios
+-- ----------------------------
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(150) DEFAULT NULL,
+  `usuario` varchar(32) DEFAULT NULL,
+  `senha` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `usuario` (`usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of usuarios
+-- ----------------------------
+INSERT INTO `usuarios` VALUES ('1', 'Rafael Correia', 'rafael', '123456');
+INSERT INTO `usuarios` VALUES ('2', 'Wissae Web II', 'wissae', '123464');
+INSERT INTO `usuarios` VALUES ('3', 'Bruno Buguno', 'brunoo', '123456');
 
 -- ----------------------------
 -- Table structure for veiculos
@@ -151,13 +167,13 @@ CREATE TABLE `veiculos` (
   `kilometro_revisao` int(11) DEFAULT NULL,
   `periodo_revisao` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of veiculos
 -- ----------------------------
 INSERT INTO `veiculos` VALUES ('1', 'BOO0000', '7', '0', '1000', '6');
-INSERT INTO `veiculos` VALUES ('2', 'MVS2850', '5', '0', '1000', '12');
+INSERT INTO `veiculos` VALUES ('2', 'MVS2850', '5', '500', '1000', '12');
 INSERT INTO `veiculos` VALUES ('3', 'NHH1795', '15', '50', '1000', '6');
 INSERT INTO `veiculos` VALUES ('4', 'NHI9544', '8', '0', '1000', '6');
 INSERT INTO `veiculos` VALUES ('5', 'NHK9985', '15', '0', '1000', '6');
@@ -244,3 +260,5 @@ INSERT INTO `veiculos` VALUES ('85', 'PSV8190', '15', '0', '1000', '6');
 INSERT INTO `veiculos` VALUES ('86', 'PSV9117', '17', '0', '1000', '6');
 INSERT INTO `veiculos` VALUES ('87', 'PSW0022', '16', '0', '1000', '6');
 INSERT INTO `veiculos` VALUES ('88', 'ROC0000', '7', '0', '1000', '6');
+INSERT INTO `veiculos` VALUES ('89', 'FQV0038', '2', '5', '2', '6');
+INSERT INTO `veiculos` VALUES ('90', 'FCC0055', '3', '0', '10000', '6');
