@@ -13,6 +13,11 @@ class DB
 		if(!isset(self::$con))
 		{
 
+			$db   = 'ifleet';
+			$host = 'localhost';
+			$user = 'root';
+			$pass = '';
+
 			self::$con = new PDO("mysql:dbname={$db};host={$host}", $user, $pass);
 		}
 

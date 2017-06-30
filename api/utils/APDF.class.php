@@ -25,12 +25,12 @@ abstract class APDF extends FPDF
 
 	public final function header()
 	{
-		$this->image("imagens/logo_relatorio.jpg", 10, 6, 20);
+		$this->image("imagens/ifma_novo.jpg", 10, 6, 20);
 		$this->ln(2);
 
 		$this->setFont('Arial', 'BU', 12);
 		$this->cell(25);
-		$this->cell(75, 0, "JÚPITER TELECOMUNICAÇÕES E INFORMÁTICA LTDA", 0, 0, 'L');
+		$this->cell(75, 0, "INSTITUTO FEDERAL DO MARANHÃO", 0, 0, 'L');
 
 		$this->ln();
 		$this->cell(25);
@@ -39,7 +39,7 @@ abstract class APDF extends FPDF
 
 		$this->ln();
 		$this->cell(25);
-		$this->cell(75, -2, "www.jupiter.com.br - sac@jupiter.com.br - " . date("d/m/Y H:i:s"), 0, 0, 'L');
+		$this->cell(75, -2, "www.ifma.edu.br - sac@ifma.edu.br - " . date("d/m/Y H:i:s"), 0, 0, 'L');
 		// $this->cell(75, -2, SystemConfig::getData($_SESSION['_sistema'])['entidade'] . " - www.jupiter.com.br - sac@jupiter.com.br - " . date("d/m/Y H:i:s"), 0, 0, 'L');
 
 		if($this->titulo != '')

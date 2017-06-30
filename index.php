@@ -25,7 +25,7 @@ if(isset($_GET['logout']))
 
 		<div class="ui middle aligned center aligned grid">
 			<div class="column">
-				<h2 class="ui blue image header">
+				<h2 class="ui olive image header">
 				<div class="content">
 					Logar em sua conta
 				</div>
@@ -44,7 +44,7 @@ if(isset($_GET['logout']))
 								<input type="password" name="senha" placeholder="Senha" required>
 							</div>
 						</div>
-						<button class="ui fluid large blue submit button">Login</button>
+						<button class="ui fluid large olive submit button">Login</button>
 					</div>
 				</form>
 				<div class="ui error message hidden"></div>
